@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Punk Archiving Toolkit</title>
+  <meta name="description" content="An open framework of guides, templates, and tools for building subcultural and community digital archives.">
+  <meta property="og:title" content="The Punk Archiving Toolkit">
+  <meta property="og:description" content="An open framework of guides, templates, and tools for building subcultural and community digital archives.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://smorello87.github.io/punk-archiving-toolkit/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📁</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #faf8f5;
+      --bg-alt: #f3eeea;
+      --text: #1c1917;
+      --text-secondary: #57534e;
+      --accent: #b45309;
+      --accent-hover: #92400e;
+      --border: #d6d3d1;
+      --border-light: #e7e5e4;
+
+      --tag-template: #92400e;
+      --tag-template-bg: #fef3c7;
+      --tag-tutorial: #1d4ed8;
+      --tag-tutorial-bg: #dbeafe;
+      --tag-guide: #15803d;
+      --tag-guide-bg: #dcfce7;
+      --tag-toolkit: #7c3aed;
+      --tag-toolkit-bg: #ede9fe;
+      --tag-schema: #0f766e;
+      --tag-schema-bg: #ccfbf1;
+      --tag-interview: #be123c;
+      --tag-interview-bg: #ffe4e6;
+      --tag-code: #334155;
+      --tag-code-bg: #e2e8f0;
+      --tag-zine: #a21caf;
+      --tag-zine-bg: #fae8ff;
+      --tag-tool: #0369a1;
+      --tag-tool-bg: #e0f2fe;
+      --tag-archive: #8b4513;
+      --tag-archive-bg: #fde8d0;
+
+      --font-display: 'Newsreader', Georgia, serif;
+      --font-body: 'Work Sans', system-ui, sans-serif;
+
+      --max-w: 44rem;
+      --space-xs: 0.5rem;
+      --space-sm: 0.75rem;
+      --space-md: 1.5rem;
+      --space-lg: 3rem;
+      --space-xl: 5rem;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+      background-color: var(--bg);
+    }
+
+    /* ---- NAV ---- */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border-light);
+      padding: var(--space-sm) var(--space-md);
+      backdrop-filter: blur(8px);
+      background: rgba(250, 248, 245, 0.92);
+    }
+
+    nav .nav-inner {
+      position: relative;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    nav .nav-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 0.15rem;
+      list-style: none;
+    }
+
+    nav .nav-links a {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      transition: color 0.2s, background 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    nav .nav-links a:hover {
+      color: var(--text);
+      background: var(--bg-alt);
+    }
+
+    /* "More +" dropdown (desktop) */
+    nav .nav-more {
+      position: relative;
+    }
+
+    nav .nav-more-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    nav .nav-more:hover .nav-more-label {
+      color: var(--text);
+      background: var(--bg-alt);
+    }
+
+    nav .nav-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: rgba(250, 248, 245, 0.97);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 0.35rem 0;
+      margin-top: 0.25rem;
+      list-style: none;
+      min-width: 130px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      z-index: 200;
+    }
+
+    nav .nav-more:hover .nav-dropdown {
+      display: block;
+    }
+
+    nav .nav-dropdown a {
+      display: block;
+      font-size: 0.78rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 0;
+    }
+
+    /* Hamburger toggle (CSS-only) */
+    nav .nav-toggle { display: none; }
+    nav .nav-toggle-label { display: none; }
+
+    @media (max-width: 768px) {
+      nav .nav-toggle-label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        cursor: pointer;
+        padding: 0.4rem;
+        margin-right: -0.4rem;
+      }
+
+      nav .nav-toggle-label span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: var(--text);
+        border-radius: 1px;
+        transition: transform 0.25s, opacity 0.25s;
+      }
+
+      nav .nav-toggle:checked + .nav-toggle-label span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+      }
+
+      nav .nav-toggle:checked + .nav-toggle-label span:nth-child(2) {
+        opacity: 0;
+      }
+
+      nav .nav-toggle:checked + .nav-toggle-label span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+
+      nav .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(250, 248, 245, 0.97);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border-light);
+        padding: 0.5rem var(--space-md) 0.75rem;
+        gap: 0;
+      }
+
+      nav .nav-toggle:checked ~ .nav-links {
+        display: flex;
+      }
+
+      nav .nav-links a {
+        font-size: 0.85rem;
+        padding: 0.5rem 0;
+        border-radius: 0;
+      }
+
+      nav .nav-more-label {
+        display: none;
+      }
+
+      nav .nav-dropdown {
+        display: contents;
+      }
+    }
+
+    /* ---- HERO ---- */
+
+    .hero {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-md) var(--space-lg);
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: var(--space-sm);
+    }
+
+    .hero .subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.45;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+    }
+
+    .hero .description {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text);
+      max-width: 38rem;
+    }
+
+    .hero .description a {
+      color: var(--accent);
+      text-decoration-color: var(--border);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s;
+    }
+
+    .hero .description a:hover {
+      text-decoration-color: var(--accent);
+    }
+
+    /* ---- DIVIDER ---- */
+
+    .divider {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .divider hr {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ---- PRINCIPLES ---- */
+
+    .principles {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--space-lg) var(--space-md);
+    }
+
+    .principles .section-label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: var(--space-sm);
+    }
+
+    .principles h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-md);
+    }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .principle {
+      padding: var(--space-md);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      background: white;
+    }
+
+    .principle-number {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: var(--space-xs);
+    }
+
+    .principle h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: var(--space-xs);
+    }
+
+    .principle p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    /* ---- SECTIONS ---- */
+
+    .section {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--space-lg) var(--space-md);
+    }
+
+    .section .section-label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: var(--space-xs);
+    }
+
+    .section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .section .section-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--space-md);
+      max-width: 36rem;
+    }
+
+    /* ---- RESOURCE ITEMS ---- */
+
+    .resources {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .resource {
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .resource:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .resource-header {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: 0.3rem;
+    }
+
+    .resource-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .resource-title a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .resource-title a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      white-space: nowrap;
+      position: relative;
+      top: -1px;
+    }
+
+    .tag-template { color: var(--tag-template); background: var(--tag-template-bg); }
+    .tag-tutorial { color: var(--tag-tutorial); background: var(--tag-tutorial-bg); }
+    .tag-guide { color: var(--tag-guide); background: var(--tag-guide-bg); }
+    .tag-toolkit { color: var(--tag-toolkit); background: var(--tag-toolkit-bg); }
+    .tag-schema { color: var(--tag-schema); background: var(--tag-schema-bg); }
+    .tag-interview { color: var(--tag-interview); background: var(--tag-interview-bg); }
+    .tag-code { color: var(--tag-code); background: var(--tag-code-bg); }
+    .tag-zine { color: var(--tag-zine); background: var(--tag-zine-bg); }
+    .tag-tool { color: var(--tag-tool); background: var(--tag-tool-bg); }
+    .tag-archive { color: var(--tag-archive); background: var(--tag-archive-bg); }
+
+    .resource-desc {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    .callout {
+      background: var(--bg-alt);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: var(--space-md);
+    }
+
+    .callout-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    .callout p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    .callout a {
+      color: var(--accent);
+      text-decoration-color: var(--border);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s;
+    }
+
+    .callout a:hover {
+      text-decoration-color: var(--accent);
+    }
+
+    .resource-credit {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      margin-top: 0.15rem;
+    }
+
+    /* ---- PERMISSION FORM PREVIEW ---- */
+
+    .form-preview {
+      margin-top: var(--space-md);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: white;
+      overflow: hidden;
+    }
+
+    .form-preview-header {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+
+    .form-preview-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: white;
+      background: var(--accent);
+      padding: 0.4rem 1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .download-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .download-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .form-preview-body {
+      padding: var(--space-md);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .form-preview-body h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+      margin-top: var(--space-md);
+    }
+
+    .form-preview-body h4:first-child {
+      margin-top: 0;
+    }
+
+    .form-preview-body p {
+      margin-bottom: 0.6rem;
+      color: var(--text-secondary);
+    }
+
+    .form-preview-body .field {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .form-preview-body ul {
+      list-style: none;
+      padding: 0;
+      margin: 0.4rem 0 0.6rem;
+    }
+
+    .form-preview-body ul li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.25rem;
+      color: var(--text-secondary);
+    }
+
+    .form-preview-body ul li::before {
+      content: "\25A1";
+      position: absolute;
+      left: 0;
+      color: var(--border);
+    }
+
+    /* ---- BIBLIOGRAPHY ---- */
+
+    .bib-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .bib-list li {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text);
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .bib-list li:last-child {
+      border-bottom: none;
+    }
+
+    .bib-list a {
+      color: var(--accent);
+      text-decoration-color: var(--border);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s;
+    }
+
+    .bib-list a:hover {
+      text-decoration-color: var(--accent);
+    }
+
+    /* ---- FOOTER ---- */
+
+    footer {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--space-lg) var(--space-md) var(--space-xl);
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration-color: var(--border);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s;
+    }
+
+    footer a:hover {
+      text-decoration-color: var(--accent);
+    }
+
+    /* ---- RESPONSIVE ---- */
+
+    @media (min-width: 640px) {
+      .principles-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 639px) {
+      .hero {
+        padding-top: var(--space-lg);
+      }
+    }
+
+    /* ---- SKIP LINK ---- */
+
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      background: var(--accent);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0 0 4px 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* ---- FOCUS STATES ---- */
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    nav .nav-links a:focus-visible,
+    nav .nav-more-label:focus-visible,
+    nav .nav-title:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      color: var(--text);
+      background: var(--bg-alt);
+    }
+
+    .download-btn:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+    }
+
+    /* ---- PRINT ---- */
+
+    @media print {
+      nav { display: none; }
+      .hero { padding-top: var(--space-md); }
+      .tag { display: none; }
+      .callout { background: none; border-left: 2px solid var(--text-secondary); }
+      .resource-title a { color: var(--text); }
+      .resource-title a::after { content: " (" attr(href) ")"; font-size: 0.8em; color: var(--text-secondary); }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#plan" class="skip-link">Skip to content</a>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-title">Punk Archiving Toolkit</a>
+      <input type="checkbox" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+      <label class="nav-toggle-label" for="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+      <ul class="nav-links">
+        <li><a href="#plan">Plan</a></li>
+        <li><a href="#permission">Permission</a></li>
+        <li><a href="#digitize">Digitize</a></li>
+        <li><a href="#build">Build</a></li>
+        <li><a href="#describe">Describe</a></li>
+        <li><a href="#oral-history">Oral History</a></li>
+        <li class="nav-more">
+          <span class="nav-more-label">More +</span>
+          <ul class="nav-dropdown">
+            <li><a href="#examples">Examples</a></li>
+            <li><a href="#further">Go Further</a></li>
+            <li><a href="#reading">Reading</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <h1>The Punk Archiving Toolkit</h1>
+    <p class="subtitle">An open framework for building subcultural and community digital archives</p>
+    <p class="description">
+      A collection of guides, templates, and tools for anyone who wants to build a digital archive of punk zines, flyers, and ephemera&mdash;or any other subcultural or community materials. Born from the experience of building the <a href="https://eastbaypunkda.com" target="_blank" rel="noopener">East Bay Punk Digital Archive</a>, this toolkit is designed to lower the barrier for DIY archivists, librarians, and community members who want to preserve and share cultural materials without starting from scratch.
+    </p>
+  </header>
+
+  <div class="divider"><hr></div>
+
+  <!-- PRINCIPLES -->
+  <section class="principles">
+    <p class="section-label">Before You Start</p>
+    <h2>Three principles for community archiving</h2>
+    <div class="principles-grid">
+      <div class="principle">
+        <p class="principle-number">01</p>
+        <h3>Archiving is relational work</h3>
+        <p>Build trust with creators. Collaborate on how their work is described and presented. Let meaning be negotiated, not imposed.</p>
+      </div>
+      <div class="principle">
+        <p class="principle-number">02</p>
+        <h3>Stack your infrastructures</h3>
+        <p>DIY only gets you so far. Combine community-driven access with institutional support for long-term preservation.</p>
+      </div>
+      <div class="principle">
+        <p class="principle-number">03</p>
+        <h3>Build to share</h3>
+        <p>Leave behind tools, templates, and workflows that other people can pick up and adapt.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- PLAN YOUR ARCHIVE -->
+  <section class="section" id="plan">
+    <p class="section-label">Step 1</p>
+    <h2>Plan your archive</h2>
+    <p class="section-desc">Before you scan a single zine, figure out the basics: What are you collecting? Who is this for? Where will it live? You don&rsquo;t need to have every answer upfront, but having a rough scope and organizing principle helps you make decisions about platforms, storage, and outreach. You also need to choose a platform early, because it shapes how you organize and present everything else.</p>
+    <div class="resources">
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://digitalfellows.commons.gc.cuny.edu/2021/03/22/choosing-the-right-platform-for-your-digital-archive/" target="_blank" rel="noopener">Choosing the Right Platform for Your Digital Archive</a></p>
+          <span class="tag tag-guide">guide</span>
+        </div>
+        <p class="resource-desc">A comparison of platforms for digital archive projects&mdash;Omeka, WordPress, Scalar, CollectiveAccess, and others&mdash;with guidance on matching your goals to the right tool.</p>
+        <p class="resource-credit">By Stefano Morello</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://community-archives.gitbook.io/toolkit" target="_blank" rel="noopener">Community Archives Toolkit</a></p>
+          <span class="tag tag-toolkit">toolkit</span>
+        </div>
+        <p class="resource-desc">A step-by-step resource for planning and launching a community archive from scratch, covering scope, stakeholders, and sustainability.</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://communityarchiveslab.ucla.edu/toolkit/" target="_blank" rel="noopener">UCLA Community Archives Lab Toolkit</a></p>
+          <span class="tag tag-toolkit">toolkit</span>
+        </div>
+        <p class="resource-desc">Resources for community-driven archival practice from UCLA, including project planning frameworks and guidance on participatory methods.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">Think about sustainability from the start</p>
+        <p>Where will your archive live in five years? Who maintains it if you move on? Consider partnering with institutional repositories&mdash;university libraries, public libraries, local historical societies&mdash;for long-term preservation of physical materials. This is not selling out: it is stacking infrastructures so that access, preservation, and creator agency coexist. Negotiate terms that keep the digital archive publicly available and ensure creators retain a say in the curatorial process, even if physical materials are institutionally housed. The <a href="https://sites.haa.pitt.edu/sustainabilityroadmap/" target="_blank" rel="noopener">Socio-Technical Sustainability Roadmap</a> offers a practical framework for scoping sustainability goals, and the <a href="https://liberalarts.tamu.edu/codhr/resources/building-sustainable-projects/" target="_blank" rel="noopener">CODHR guide to building sustainable projects</a> covers governance, funding, and technology decisions to make early.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- GET PERMISSION -->
+  <section class="section" id="permission">
+    <p class="section-label">Step 2</p>
+    <h2>Get permission</h2>
+    <p class="section-desc">Consent is the foundation of the entire project. Before you digitize anything, contact the creator and get written permission. Be clear about what you&rsquo;re doing, where their work will appear, and what control they retain. Some people will say no, and that&rsquo;s fine. A permission form protects both you and the creator by documenting exactly what was agreed to: access level, credit, and how to request changes or removal later.</p>
+    <div class="resources">
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://docs.google.com/document/d/1N7I91-eYwPl23uAo0UozLrX2yL-D_IFu/edit?usp=sharing&ouid=107505223254233917359&rtpof=true&sd=true" target="_blank" rel="noopener">Permission Form Template</a></p>
+          <span class="tag tag-template">template</span>
+        </div>
+        <p class="resource-desc">A non-exclusive grant of permission form covering digitization rights, access tiers, credit, takedown provisions, and OCR/transcription options. Make a copy and customize it for your project.</p>
+        <p class="resource-credit">Adapted from the East Bay Punk Digital Archive</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://www.zinelibraries.info/code-of-ethics/" target="_blank" rel="noopener">Zine Librarians Code of Ethics</a></p>
+          <span class="tag tag-guide">guide</span>
+        </div>
+        <p class="resource-desc">Ethical guidelines for acquiring, managing, and preserving zines, developed collaboratively by the zine librarian community. Essential reading on consent, creator relationships, and responsible stewardship. Also available as a <a href="https://www.zinelibraries.info/wp-content/uploads/2015/11/EthicsZine-rev-20151105.pdf" target="_blank" rel="noopener">printable zine</a>.</p>
+        <p class="resource-credit">By the Zine Librarians community</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- DIGITIZE YOUR MATERIALS -->
+  <section class="section" id="digitize">
+    <p class="section-label">Step 3</p>
+    <h2>Digitize your materials</h2>
+    <p class="section-desc">Digitization means turning physical objects&mdash;zines, flyers, photos, letters&mdash;into digital files. The quality of your scans matters: a badly scanned zine is hard to read and impossible to OCR. You don&rsquo;t need expensive equipment, but you do need to follow some basic standards so your files are usable for years to come.</p>
+    <div class="resources">
+
+      <div class="callout">
+        <p class="callout-title">Scanning equipment</p>
+        <p>Flatbed scanners produce the best results for zines and ephemera. A <a href="https://www.usa.canon.com/shop/p/canoscan-lide-400" target="_blank" rel="noopener">Canon CanoScan LiDE 400</a> (~$80, USB-powered) is a solid budget option. The <a href="https://epson.com/For-Home/Scanners/Photo/Epson-Perfection-V600-Photo-Scanner/p/B11B198011" target="_blank" rel="noopener">Epson Perfection V600</a> (~$300) is better for color accuracy and film scanning. Phone scanning apps (<a href="https://www.adobe.com/acrobat/mobile/scanner-app.html" target="_blank" rel="noopener">Adobe Scan</a>, <a href="https://apps.apple.com/us/app/genius-scan-pdf-scanner/id1093753460" target="_blank" rel="noopener">Genius Scan</a>) work for quick fieldwork&mdash;when you&rsquo;re at someone&rsquo;s house and they pull a box out of the closet&mdash;but flatbeds are what you want for your archival masters.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">Bound and fragile materials</p>
+        <p>Not everything can be pressed flat on a scanner. Bound books, fragile papers, and oversized items need an overhead book scanner (like a <a href="https://www.imageaccess.de/bookeye" target="_blank" rel="noopener">Bookeye</a>) with a V-cradle that holds the spine without cracking it. These are expensive&mdash;don&rsquo;t buy one. Instead, ask your local university library or public library if they have one available. Many academic libraries offer digitization services or at least walk-in access to their scanners. A partnership here can save you thousands and get you better results.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">Resolution and file formats</p>
+        <p>Scan at 400&ndash;600 DPI minimum for archival quality. Save masters as uncompressed TIFF or PNG&mdash;both are lossless. TIFF is the archival standard; PNG is more compact and widely supported. Create separate access copies (JPEG or PDF) for the web. The less you do to the original scan at the scanning stage, the better&mdash;editing should be a separate step. See the <a href="https://www.archives.gov/preservation/technical/guidelines.html" target="_blank" rel="noopener">NARA Digitization Guidelines</a> and the <a href="https://blogs.loc.gov/thesignal/2014/03/personal-digital-archiving-the-basics-of-scanning/" target="_blank" rel="noopener">Library of Congress scanning guide</a> for detailed standards.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">Post-processing</p>
+        <p>Once scanned, pages often need cropping, deskewing, and cleanup. <a href="https://scantailor.org/" target="_blank" rel="noopener">ScanTailor</a> (free, open-source) is purpose-built for this&mdash;it handles page splitting, deskewing, margin adjustment, and content detection in batch. For general image editing, <a href="https://www.gimp.org/" target="_blank" rel="noopener">GIMP</a> (free, open-source) remains the standard for color correction, levels adjustment, and cleanup. <a href="https://www.photopea.com/" target="_blank" rel="noopener">Photopea</a> is a capable browser-based alternative if you don&rsquo;t want to install anything. For large batches of raw scans, <a href="https://www.darktable.org/" target="_blank" rel="noopener">darktable</a> (free, open-source) offers non-destructive batch processing.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">OCR and text extraction</p>
+        <p>For clean printed text, <a href="https://github.com/tesseract-ocr/tesseract" target="_blank" rel="noopener">Tesseract</a> (free, open-source, runs locally) works well and keeps your data on your machine. For handwritten text, messy layouts, or mixed content&mdash;which is most zines&mdash;AI-based OCR is far more accurate. <a href="https://mistral.ai/news/mistral-ocr" target="_blank" rel="noopener">Mistral OCR</a> has zero data retention by default and handles handwriting, multi-column layouts, and mixed content well. You can also run open-source vision models locally via <a href="https://ollama.com/" target="_blank" rel="noopener">Ollama</a> for complete privacy. As noted in the permission form, always give creators the option to opt out of displaying OCR text publicly.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- BUILD IT -->
+  <section class="section" id="build">
+    <p class="section-label">Step 4</p>
+    <h2>Build it</h2>
+    <p class="section-desc">Now you need somewhere to put everything. There are several platforms to choose from (see <a href="#plan">Step 1</a>), but this toolkit defaults to <a href="https://omeka.org/" target="_blank" rel="noopener">Omeka</a> because it is the most widely used open-source platform for digital collections, with a large community and extensive documentation. It lets you upload items, attach metadata, organize collections, and create public-facing exhibits without writing code. These tutorials walk you through the setup.</p>
+    <div class="resources">
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://github.com/smorello87/intro-to-omeka" target="_blank" rel="noopener">Introduction to Omeka</a></p>
+          <span class="tag tag-tutorial">tutorial</span>
+        </div>
+        <p class="resource-desc">A workshop-style tutorial for getting started with Omeka, the open-source content management system purpose-built for digital collections. Walks through setup, items, collections, and exhibits.</p>
+        <p class="resource-credit">By Stefano Morello</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://digitalfellows.commons.gc.cuny.edu/2019/11/07/a-legible-digital-archive-displaying-and-sorting-content-on-an-omeka-site/" target="_blank" rel="noopener">Displaying and Sorting Content on an Omeka Site</a></p>
+          <span class="tag tag-guide">guide</span>
+        </div>
+        <p class="resource-desc">Practical advice on making your archive legible and navigable&mdash;how to organize items, create browse pages, and help users actually find what they are looking for.</p>
+        <p class="resource-credit">By Stefano Morello</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- DESCRIBE YOUR MATERIALS -->
+  <section class="section" id="describe">
+    <p class="section-label">Step 5</p>
+    <h2>Describe your materials</h2>
+    <p class="section-desc">Every item in your archive needs a description&mdash;who made it, when, what it is, what it&rsquo;s about. This is called <strong>metadata</strong>, and it&rsquo;s how people search, browse, and make sense of your collection. The key is to pick a schema (a consistent set of fields) and stick with it across every item. If you describe one zine with &ldquo;creator&rdquo; and another with &ldquo;author&rdquo; and a third with &ldquo;made by,&rdquo; your archive becomes unsearchable. Choose a standard, be consistent, and document your decisions so collaborators can follow the same rules.</p>
+    <div class="resources">
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://www.zinelibraries.info/wp-content/uploads/2021/05/Zinecore_Zine_Flats.pdf" target="_blank" rel="noopener">xZINECOREx Metadata Schema</a></p>
+          <span class="tag tag-schema">schema</span>
+        </div>
+        <p class="resource-desc">If you&rsquo;re archiving zines, start here. xZINECOREx is a metadata schema built specifically for zines by the zine librarian community. It maps to Dublin Core (the broader standard below) but includes fields and guidance tailored to the quirks of zines&mdash;pseudonymous creators, undated issues, hand-lettered titles, and so on.</p>
+        <p class="resource-credit">By the Zine Librarians community</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://www.dublincore.org/specifications/dublin-core/usageguide/" target="_blank" rel="noopener">Dublin Core Metadata Guide</a></p>
+          <span class="tag tag-guide">guide</span>
+        </div>
+        <p class="resource-desc">Dublin Core is the standard metadata framework used by most digital archives. It defines 15 core elements&mdash;title, creator, subject, date, format, and so on&mdash;that make your materials interoperable with other collections. If you&rsquo;re archiving materials beyond zines (flyers, photos, recordings, correspondence), Dublin Core is the baseline to build on.</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://docs.google.com/spreadsheets/d/1Pq-8onQC0ZleewmlqN9GD6BfRwixL2-4vRiJUeajsD8/edit?usp=sharing" target="_blank" rel="noopener">Metadata Sample Spreadsheet</a></p>
+          <span class="tag tag-template">template</span>
+        </div>
+        <p class="resource-desc">A working example of what metadata looks like in practice for a zine and ephemera collection. Make a copy and adapt the fields to your materials. Useful for drafting metadata in a spreadsheet before importing it into your platform.</p>
+        <p class="resource-credit">By Stefano Morello</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- ORAL HISTORY -->
+  <section class="section" id="oral-history">
+    <p class="section-label">Step 6</p>
+    <h2>Oral history</h2>
+    <p class="section-desc">Oral history is itself a form of archiving&mdash;it preserves voices, memories, and context that no zine or flyer can capture. If you&rsquo;re documenting a living scene, recorded interviews with creators are some of the most valuable materials you can produce.</p>
+    <div class="resources">
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://oralhistory.org/best-practices/" target="_blank" rel="noopener">Oral History Best Practices</a></p>
+          <span class="tag tag-guide">guide</span>
+        </div>
+        <p class="resource-desc">Guidelines from the Oral History Association on conducting ethical, community-centered interviews, covering preparation, informed consent, recording, and long-term access. Start here.</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://siarchives.si.edu/history/how-do-oral-history" target="_blank" rel="noopener">How to Do Oral History</a></p>
+          <span class="tag tag-guide">guide</span>
+        </div>
+        <p class="resource-desc">The Smithsonian&rsquo;s step-by-step guide to planning and conducting oral history interviews, including equipment recommendations, question design, and release forms.</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://www.oralhistoryonline.org/" target="_blank" rel="noopener">OHMS (Oral History Metadata Synchronizer)</a></p>
+          <span class="tag tag-tool">tool</span>
+        </div>
+        <p class="resource-desc">A free, open-source tool for making recorded interviews searchable and navigable online. OHMS connects search results to the exact moment in a recording by syncing transcripts or indexes with timecode&mdash;so users can jump straight to what they&rsquo;re looking for instead of scrubbing through hours of audio.</p>
+        <p class="resource-credit">By the Louie B. Nunn Center for Oral History, University of Kentucky Libraries</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">Transcription</p>
+        <p>For local, private transcription, <a href="https://github.com/openai/whisper" target="_blank" rel="noopener">Whisper</a> (OpenAI&rsquo;s open-source speech recognition model) runs entirely on your own machine&mdash;no data leaves your computer. <a href="https://github.com/rishikanthc/Scriberr" target="_blank" rel="noopener">Scriberr</a> wraps Whisper in a self-hosted web app with a clean interface for managing transcriptions. For a cloud option with zero retention, <a href="https://mistral.ai/" target="_blank" rel="noopener">Mistral</a>&rsquo;s API does not retain your data by default. Privacy matters here&mdash;interview subjects may share sensitive stories, and you owe it to them to keep that material under your control.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- EXAMPLES -->
+  <section class="section" id="examples">
+    <p class="section-label">Inspiration</p>
+    <h2>Examples</h2>
+    <p class="section-desc">Sometimes the best way to figure out what your archive could look like is to see what others have built. These projects range from small community-run efforts to institutional collections&mdash;each one a different model for how subcultural materials can be preserved and shared.</p>
+
+    <div class="resources">
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://eastbaypunkda.com" target="_blank" rel="noopener">East Bay Punk Digital Archive</a></p>
+          <span class="tag tag-archive">archive</span>
+        </div>
+        <p class="resource-desc">An open-access, searchable archive of zines, flyers, and ephemera from the East Bay punk scene, built on Omeka S. The project that this toolkit grew out of&mdash;and a working example of the methods described here.</p>
+        <p class="resource-credit">By Stefano Morello</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://www.dclibrary.org/punk" target="_blank" rel="noopener">DC Punk Archive</a></p>
+          <span class="tag tag-archive">archive</span>
+        </div>
+        <p class="resource-desc">A public library&ndash;hosted digital collection of zines, flyers, posters, and photographs documenting the DC punk scene from 1976 to the present, with community-donated materials browsable through DC Public Library&rsquo;s digital repository.</p>
+        <p class="resource-credit">DC Public Library</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://www.qzap.org/" target="_blank" rel="noopener">Queer Zine Archive Project (QZAP)</a></p>
+          <span class="tag tag-archive">archive</span>
+        </div>
+        <p class="resource-desc">A community-run digital archive of queer zines freely available for viewing and download, operating since 2003 as a grassroots effort to preserve underground queer publishing and DIY culture.</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://buamomeka.binghamton.edu/s/bingpunk" target="_blank" rel="noopener">DIY Bing Punk Rock Archive</a></p>
+          <span class="tag tag-archive">archive</span>
+        </div>
+        <p class="resource-desc">A community-built digital archive documenting Binghamton, NY&rsquo;s punk scene from 1975 to the present, with browsable collections of flyers, photos, zines, and an interactive venues map. Built on Omeka S&mdash;a strong example of what a small-scale, locally focused archive can look like.</p>
+        <p class="resource-credit">Binghamton University</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://southdocs.org/project/southern-punk-archive/" target="_blank" rel="noopener">Southern Punk Archive</a></p>
+          <span class="tag tag-archive">archive</span>
+        </div>
+        <p class="resource-desc">An initiative of the Southern Documentary Project at the University of Mississippi that collects oral histories, videos, photos, flyers, and music from Southern punk and hardcore communities, with focus on rural punks, DIY spaces, and self-published works.</p>
+        <p class="resource-credit">Southern Documentary Project, University of Mississippi</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://archive.org/details/zines" target="_blank" rel="noopener">Internet Archive &mdash; Zines Collection</a></p>
+          <span class="tag tag-archive">archive</span>
+        </div>
+        <p class="resource-desc">The Internet Archive hosts tens of thousands of digitized zines (including a dedicated <a href="https://archive.org/details/misczinespunk" target="_blank" rel="noopener">punk zines sub-collection</a>) freely available for browsing and download&mdash;the single largest open-access repository of zine material on the web.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- GO FURTHER -->
+  <section class="section" id="further">
+    <p class="section-label">Step 7</p>
+    <h2>Go further</h2>
+    <p class="section-desc">Once your archive exists, you can build on it&mdash;with data visualization, digital storytelling, interactive timelines, and connections to other community projects.</p>
+    <div class="resources">
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://github.com/smorello87/vebp" target="_blank" rel="noopener">Visualizing East Bay Punk (VEBP)</a></p>
+          <span class="tag tag-code">code</span>
+        </div>
+        <p class="resource-desc">Open-source data visualization code for exploring analytical data about a music scene&mdash;band affiliations, shows, venues, lyrics, and more. Built for the East Bay punk scene but adaptable to other communities.</p>
+        <p class="resource-credit">By Stefano Morello</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://storymaps.arcgis.com/" target="_blank" rel="noopener">ArcGIS StoryMaps</a></p>
+          <span class="tag tag-tool">tool</span>
+        </div>
+        <p class="resource-desc">Create interactive, map-based narratives that combine text, images, and archival materials with geographic context. Free tier available. Good for telling the spatial story of a scene&mdash;where venues were, how communities moved, what neighborhoods looked like.</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://storymap.knightlab.com/" target="_blank" rel="noopener">StoryMapJS</a></p>
+          <span class="tag tag-tool">tool</span>
+        </div>
+        <p class="resource-desc">A free, open-source alternative to ArcGIS StoryMaps from Northwestern University&rsquo;s Knight Lab. Build guided map-based narratives without any coding. Simpler than ArcGIS but effective for straightforward spatial stories.</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://timeline.knightlab.com/" target="_blank" rel="noopener">TimelineJS</a></p>
+          <span class="tag tag-tool">tool</span>
+        </div>
+        <p class="resource-desc">Another free Knight Lab tool. Build interactive timelines from a Google Sheets template&mdash;add images, video, and archival materials to create a navigable chronology of a scene, a venue, or a zine&rsquo;s run.</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://scalar.me/anvc/scalar/" target="_blank" rel="noopener">Scalar</a></p>
+          <span class="tag tag-tool">tool</span>
+        </div>
+        <p class="resource-desc">A free, open-source platform for long-form, media-rich digital scholarship. Lets you weave together archival materials, annotations, and narrative in non-linear paths&mdash;useful for telling complex stories about a scene or collection.</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
+          <p class="resource-title"><a href="https://digitalarcplatform.github.io/" target="_blank" rel="noopener">DigitalArc Toolkit</a></p>
+          <span class="tag tag-toolkit">toolkit</span>
+        </div>
+        <p class="resource-desc">A platform for community storytelling and digital archiving that provides guidance from planning to publishing, with step-by-step instructions adaptable to different community contexts.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><hr></div>
+
+  <!-- FURTHER READING -->
+  <section class="section" id="reading">
+    <p class="section-label">Further Reading</p>
+    <h2>Bibliography</h2>
+    <p class="section-desc">Academic and practitioner literature on community archiving, subcultural preservation, and archival theory. Useful for grounding your work, writing grant applications, or just understanding the broader conversation your archive is part of.</p>
+    <ul class="bib-list">
+      <li>
+        Alcalay, Ammiel. <a href="https://punctumbooks.com/titles/follow-the-person-archival-encounters/" target="_blank" rel="noopener"><em>Follow the Person: Archival Encounters</em></a>. Punctum Books, 2025. &mdash; On &ldquo;kin review&rdquo; and person-centered archival recovery as an alternative to institutional authority.
+      </li>
+      <li>
+        Caswell, Michelle. <a href="https://www.routledge.com/Urgent-Archives-Enacting-Liberatory-Memory-Work/Caswell/p/book/9780367427276" target="_blank" rel="noopener"><em>Urgent Archives: Enacting Liberatory Memory Work</em></a>. Routledge, 2021. &mdash; Ethnographic study of community archives as sites of liberatory practice, based on over a decade of fieldwork.
+      </li>
+      <li>
+        Caswell, Michelle, Marika Cifor, and Mario H. Ramirez. &ldquo;<a href="https://doi.org/10.17723/0360-9081.79.1.56" target="_blank" rel="noopener">To Suddenly Discover Yourself Existing: Uncovering the Affective Impact of Community Archives</a>.&rdquo; <em>The American Archivist</em> 79, no. 1 (2016): 56&ndash;81.
+      </li>
+      <li>
+        Cloutier, Jean-Christophe. <a href="https://cup.columbia.edu/book/shadow-archives/9780231193306/" target="_blank" rel="noopener"><em>Shadow Archives: The Lifecycles of African American Literature</em></a>. Columbia University Press, 2019. &mdash; On &ldquo;shadow archives&rdquo; and self-archiving tactics in communities facing cultural erasure.
+      </li>
+      <li>
+        Duncombe, Stephen. <a href="https://microcosmpublishing.com/catalog/books/1447/" target="_blank" rel="noopener"><em>Notes from Underground: Zines and the Politics of Alternative Culture</em></a>. Verso, 1997; 4th ed. Microcosm, 2025. &mdash; The foundational study of zines as political and cultural practice.
+      </li>
+      <li>
+        Flinn, Andrew. &ldquo;<a href="https://doi.org/10.1080/00379810701611936" target="_blank" rel="noopener">Community Histories, Community Archives: Some Opportunities and Challenges</a>.&rdquo; <em>Journal of the Society of Archivists</em> 28, no. 2 (2007): 151&ndash;76. &mdash; Early and influential framing of grassroots community archives.
+      </li>
+      <li>
+        Flinn, Andrew. &ldquo;<a href="https://escholarship.org/uc/item/9pt2490x" target="_blank" rel="noopener">Archival Activism: Independent and Community-led Archives, Radical Public History and the Heritage Professions</a>.&rdquo; <em>InterActions: UCLA Journal of Education and Information Studies</em> 7, no. 2 (2011).
+      </li>
+      <li>
+        Greene, Mark A., and Dennis Meissner. &ldquo;<a href="https://www2.archivists.org/sites/all/files/MPLP-AmericanArchivist-2005.pdf" target="_blank" rel="noopener">More Product, Less Process: Revamping Traditional Archival Processing</a>.&rdquo; <em>The American Archivist</em> 68, no. 2 (2005): 208&ndash;63. &mdash; Influential argument for pragmatic, minimal processing to reduce backlogs and get materials into users&rsquo; hands faster.
+      </li>
+      <li>
+        Lymn, Jessie. &ldquo;<a href="https://doi.org/10.1080/01576895.2013.769861" target="_blank" rel="noopener">The Zine Anthology as Archive: Archival Genres and Practices</a>.&rdquo; <em>Archives and Manuscripts</em> 41, no. 1 (2013): 44&ndash;57. &mdash; On how zine anthologies function as community-driven archival practice.
+      </li>
+      <li>
+        Lymn, Jessie. &ldquo;<a href="https://doi.org/10.1007/s10502-022-09388-1" target="_blank" rel="noopener">Zines as Community Archive</a>.&rdquo; <em>Archival Science</em> 22 (2022): 519&ndash;38.
+      </li>
+    </ul>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>
+      The Punk Archiving Toolkit is a companion to the <a href="https://eastbaypunkda.com" target="_blank" rel="noopener">East Bay Punk Digital Archive</a>, built by <a href="https://stefanomorello.com" target="_blank" rel="noopener">Stefano Morello</a>. The resources collected here are intended to lower the barrier for anyone interested in subcultural and community preservation work. Adapt freely.
+    </p>
+    <p style="margin-top: 0.75rem;">
+      To learn more about the methodology and decisions behind the EBP-DA, see this <a href="https://www.punkinthe1990s.com/the-east-bay-punk-digital-archive-explained-by-stefano-morello/" target="_blank" rel="noopener">interview with Stefano Morello</a> on Punk in the 1990s.
+    </p>
+    <p style="margin-top: 0.75rem;">
+      This toolkit is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Adapt, remix, and share freely with attribution.
+    </p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.nav-links a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        document.getElementById('nav-toggle').checked = false;
+      });
+    });
+  </script>
+
+</body>
+</html>
