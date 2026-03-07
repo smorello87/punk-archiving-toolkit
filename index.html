@@ -8,7 +8,7 @@
   <meta property="og:title" content="The Punk Archiving Toolkit">
   <meta property="og:description" content="An open framework of guides, templates, and tools for building subcultural and community digital archives.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://smorello87.github.io/punk-archiving-toolkit/">
+  <meta property="og:url" content="https://eastbaypunkda.com/toolkit">
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📁</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -798,7 +798,7 @@
   <div class="divider"><hr></div>
 
   <!-- PRINCIPLES -->
-  <section class="principles">
+  <section class="principles" id="principles">
     <p class="section-label">Before You Start</p>
     <h2>Three principles for community archiving</h2>
     <div class="principles-grid">
@@ -852,6 +852,11 @@
           <span class="tag tag-toolkit">toolkit</span>
         </div>
         <p class="resource-desc">Resources for community-driven archival practice from UCLA, including project planning frameworks and guidance on participatory methods.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">You can't build a community archive alone</p>
+        <p>The materials live in people&rsquo;s closets, basements, and personal collections&mdash;you can&rsquo;t just go find them. People have to trust you enough to share what they have, which means the relational work described in <a href="#principles">Principle 01</a> isn&rsquo;t abstract. The community is also where the knowledge lives: no catalog or database can replace the people who were there. The labor can also be shared: scanning, describing, transcribing, and identifying items are all tasks that can be crowdsourced. Distributing the work makes the project more sustainable and gives more people a stake in the outcome.</p>
       </div>
 
       <div class="callout">
@@ -909,6 +914,16 @@
       <div class="callout">
         <p class="callout-title">Bound and fragile materials</p>
         <p>Not everything can be pressed flat on a scanner. Bound books, fragile papers, and oversized items need an overhead book scanner (like a <a href="https://www.imageaccess.de/bookeye" target="_blank" rel="noopener">Bookeye</a>) with a V-cradle that holds the spine without cracking it. These are expensive&mdash;don&rsquo;t buy one. Instead, ask your local university library or public library if they have one available. Many academic libraries offer digitization services or at least walk-in access to their scanners. A partnership here can save you thousands and get you better results.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">File naming</p>
+        <p>Decide on a naming convention before you start scanning and stick with it. A good file name encodes enough information to identify the item without opening it&mdash;project, type, creator or title, and date. Something like <code>ebpda_zine_cometbus-50_1999.tiff</code> is far more useful than <code>scan0041.tiff</code> when you have hundreds of files. Whatever system you choose, document it so collaborators can follow the same rules.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">Backups and storage</p>
+        <p>Archival TIFFs are large and losing them means re-scanning everything. Follow the 3-2-1 rule: keep at least three copies of your files, on two different types of media, with one copy stored offsite. An external hard drive plus a cloud backup service covers most of this. If you are partnering with an institution, ask whether they can store a copy of your master files as part of the arrangement.</p>
       </div>
 
       <div class="callout">
@@ -970,6 +985,15 @@
 
       <div class="resource">
         <div class="resource-header">
+          <p class="resource-title"><a href="https://www.getty.edu/publications/intrometadata/" target="_blank" rel="noopener">Introduction to Metadata</a></p>
+          <span class="tag tag-guide">guide</span>
+        </div>
+        <p class="resource-desc">If metadata is a new concept for you, start here. This open-access book from the Getty Research Institute explains what metadata is, why it matters, and how different schemas and standards work together. Covers the fundamentals without assuming a library science background.</p>
+        <p class="resource-credit">Getty Research Institute</p>
+      </div>
+
+      <div class="resource">
+        <div class="resource-header">
           <p class="resource-title"><a href="https://www.zinelibraries.info/wp-content/uploads/2021/05/Zinecore_Zine_Flats.pdf" target="_blank" rel="noopener">xZINECOREx Metadata Schema</a></p>
           <span class="tag tag-schema">schema</span>
         </div>
@@ -983,6 +1007,11 @@
           <span class="tag tag-guide">guide</span>
         </div>
         <p class="resource-desc">Dublin Core is the standard metadata framework used by most digital archives. It defines 15 core elements&mdash;title, creator, subject, date, format, and so on&mdash;that make your materials interoperable with other collections. If you&rsquo;re archiving materials beyond zines (flyers, photos, recordings, correspondence), Dublin Core is the baseline to build on.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">Controlled vocabularies</p>
+        <p>A metadata schema tells you what fields to use. A controlled vocabulary tells you what values to put in them. Instead of typing freehand subjects like &ldquo;punk,&rdquo; &ldquo;punk rock,&rdquo; and &ldquo;punk music&rdquo; across different items, a controlled vocabulary gives you one agreed-upon term so everything stays searchable and consistent. The <a href="https://www.loc.gov/librarians/controlled-vocabularies/" target="_blank" rel="noopener">Library of Congress</a> maintains the most widely used vocabularies, including subject headings (LCSH) and name authority files. The <a href="https://www.getty.edu/research/tools/vocabularies/" target="_blank" rel="noopener">Getty Vocabularies</a> cover art, architecture, and cultural objects. You do not have to adopt these wholesale&mdash;many community archives create local vocabularies that reflect how their communities actually talk about the materials, then map those terms to a standard vocabulary for interoperability.</p>
       </div>
 
       <div class="resource">
@@ -1112,6 +1141,11 @@
     <h2>Go further</h2>
     <p class="section-desc">Once your archive exists, you can build on it&mdash;with data visualization, digital storytelling, interactive timelines, and connections to other community projects.</p>
     <div class="resources">
+
+      <div class="callout">
+        <p class="callout-title">Data as archives</p>
+        <p>A spreadsheet of events and dates, a dataset of people and their connections, a geocoded list of places are archives too. Structured data captures patterns, relationships, and histories that no single object can. When you collect this kind of information, you create the foundation for network visualizations, maps, timelines, and analyses that let people explore a scene in ways that browsing a collection alone cannot offer. The data you gather today may be the most reusable part of your project.</p>
+      </div>
 
       <div class="resource">
         <div class="resource-header">
