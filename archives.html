@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Punk Archives Directory — The Punk Archiving Toolkit</title>
+  <meta name="description" content="A browsable directory of 113 digital punk archives — institutional collections, community projects, zine libraries, and more.">
+  <meta property="og:title" content="Digital Punk Archives Directory">
+  <meta property="og:description" content="A browsable directory of 113 digital punk archives — institutional collections, community projects, zine libraries, and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://eastbaypunkda.com/toolkit/archives.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📁</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #faf8f5;
+      --bg-alt: #f3eeea;
+      --text: #1c1917;
+      --text-secondary: #57534e;
+      --accent: #b45309;
+      --accent-hover: #92400e;
+      --border: #d6d3d1;
+      --border-light: #e7e5e4;
+
+      --tag-template: #92400e;
+      --tag-template-bg: #fef3c7;
+      --tag-tutorial: #1d4ed8;
+      --tag-tutorial-bg: #dbeafe;
+      --tag-guide: #15803d;
+      --tag-guide-bg: #dcfce7;
+      --tag-toolkit: #7c3aed;
+      --tag-toolkit-bg: #ede9fe;
+      --tag-schema: #0f766e;
+      --tag-schema-bg: #ccfbf1;
+      --tag-interview: #be123c;
+      --tag-interview-bg: #ffe4e6;
+      --tag-code: #334155;
+      --tag-code-bg: #e2e8f0;
+      --tag-zine: #a21caf;
+      --tag-zine-bg: #fae8ff;
+      --tag-tool: #0369a1;
+      --tag-tool-bg: #e0f2fe;
+      --tag-archive: #8b4513;
+      --tag-archive-bg: #fde8d0;
+
+      --font-display: 'Newsreader', Georgia, serif;
+      --font-body: 'Work Sans', system-ui, sans-serif;
+
+      --max-w: 44rem;
+      --grid-max: 72rem;
+      --card-gap: 1.25rem;
+
+      --space-xs: 0.5rem;
+      --space-sm: 0.75rem;
+      --space-md: 1.5rem;
+      --space-lg: 3rem;
+      --space-xl: 5rem;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+      background-color: var(--bg);
+    }
+
+    /* ---- SKIP LINK ---- */
+
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      background: var(--accent);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 0 0 6px 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 999;
+      text-decoration: none;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* ---- NAV ---- */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border-light);
+      padding: var(--space-sm) var(--space-md);
+      backdrop-filter: blur(8px);
+      background: rgba(250, 248, 245, 0.92);
+    }
+
+    nav .nav-inner {
+      max-width: var(--grid-max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    nav .nav-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    nav .nav-title:hover {
+      color: var(--accent);
+    }
+
+    nav .page-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+    }
+
+    /* ---- HERO ---- */
+
+    .hero {
+      padding: var(--space-lg) var(--space-md) var(--space-md);
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero .subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 36rem;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ---- SEARCH BAR ---- */
+
+    .search-bar {
+      position: sticky;
+      top: 49px;
+      z-index: 90;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-light);
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .search-inner {
+      max-width: var(--grid-max);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text);
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-input::placeholder {
+      color: #a8a29e;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.1);
+    }
+
+    .filter-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .filter-btn {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 3px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s;
+      background: transparent;
+    }
+
+    .filter-btn[data-active="false"] {
+      opacity: 0.7;
+    }
+
+    .filter-btn[data-active="false"]:hover {
+      opacity: 1;
+    }
+
+    .filter-btn[data-active="true"] {
+      opacity: 1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+
+    /* Filter button colors */
+    .filter-btn[data-cat="institutional"]       { color: var(--tag-guide); border-color: var(--tag-guide); }
+    .filter-btn[data-cat="institutional"][data-active="true"] { background: var(--tag-guide-bg); }
+    .filter-btn[data-cat="public-library"]      { color: var(--tag-template); border-color: var(--tag-template); }
+    .filter-btn[data-cat="public-library"][data-active="true"] { background: var(--tag-template-bg); }
+    .filter-btn[data-cat="museum"]              { color: var(--tag-toolkit); border-color: var(--tag-toolkit); }
+    .filter-btn[data-cat="museum"][data-active="true"] { background: var(--tag-toolkit-bg); }
+    .filter-btn[data-cat="independent"]         { color: var(--tag-zine); border-color: var(--tag-zine); }
+    .filter-btn[data-cat="independent"][data-active="true"] { background: var(--tag-zine-bg); }
+    .filter-btn[data-cat="internet-archive"]    { color: var(--tag-code); border-color: var(--tag-code); }
+    .filter-btn[data-cat="internet-archive"][data-active="true"] { background: var(--tag-code-bg); }
+    .filter-btn[data-cat="zine-library"]        { color: var(--tag-tutorial); border-color: var(--tag-tutorial); }
+    .filter-btn[data-cat="zine-library"][data-active="true"] { background: var(--tag-tutorial-bg); }
+    .filter-btn[data-cat="label"]               { color: var(--tag-interview); border-color: var(--tag-interview); }
+    .filter-btn[data-cat="label"][data-active="true"] { background: var(--tag-interview-bg); }
+    .filter-btn[data-cat="oral-history"]        { color: var(--tag-schema); border-color: var(--tag-schema); }
+    .filter-btn[data-cat="oral-history"][data-active="true"] { background: var(--tag-schema-bg); }
+    .filter-btn[data-cat="commercial"]          { color: var(--tag-tool); border-color: var(--tag-tool); }
+    .filter-btn[data-cat="commercial"][data-active="true"] { background: var(--tag-tool-bg); }
+
+    /* ---- RESULTS ---- */
+
+    .results-bar {
+      max-width: var(--grid-max);
+      margin: 0 auto;
+      padding: var(--space-sm) var(--space-md) 0;
+    }
+
+    .results-count {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* ---- CARD GRID ---- */
+
+    main {
+      padding: 0 var(--space-md) var(--space-xl);
+    }
+
+    .card-grid {
+      max-width: var(--grid-max);
+      margin: var(--space-sm) auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--card-gap);
+    }
+
+    @media (max-width: 960px) {
+      .card-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .card-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ---- CARD ---- */
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .card-title a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .card-title a:hover {
+      color: var(--accent);
+    }
+
+    .card-scope {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      font-variant: small-caps;
+      text-transform: lowercase;
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.25rem;
+    }
+
+    /* ---- TAGS ---- */
+
+    .tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.45rem;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .tag-guide       { color: var(--tag-guide); background: var(--tag-guide-bg); }
+    .tag-template    { color: var(--tag-template); background: var(--tag-template-bg); }
+    .tag-toolkit     { color: var(--tag-toolkit); background: var(--tag-toolkit-bg); }
+    .tag-zine        { color: var(--tag-zine); background: var(--tag-zine-bg); }
+    .tag-code        { color: var(--tag-code); background: var(--tag-code-bg); }
+    .tag-tutorial    { color: var(--tag-tutorial); background: var(--tag-tutorial-bg); }
+    .tag-interview   { color: var(--tag-interview); background: var(--tag-interview-bg); }
+    .tag-schema      { color: var(--tag-schema); background: var(--tag-schema-bg); }
+    .tag-tool        { color: var(--tag-tool); background: var(--tag-tool-bg); }
+
+    .card-visit {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .card-visit:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    /* ---- EMPTY STATE ---- */
+
+    .empty-state {
+      text-align: center;
+      padding: var(--space-lg) var(--space-md);
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: var(--grid-max);
+      margin: 0 auto;
+    }
+
+    /* ---- FOOTER ---- */
+
+    footer {
+      border-top: 1px solid var(--border-light);
+      padding: var(--space-lg) var(--space-md);
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ---- FOCUS STATES ---- */
+
+    a:focus-visible,
+    .search-input:focus-visible,
+    .filter-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ---- PRINT ---- */
+
+    @media print {
+      nav, .search-bar, .filter-tags { display: none; }
+      .card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+      .card-title a::after { content: " (" attr(href) ")"; font-size: 0.75rem; font-family: var(--font-body); font-weight: 400; }
+      .tag { border: 1px solid currentColor; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#directory" class="skip-link">Skip to directory</a>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-title">The Punk Archiving Toolkit</a>
+    <span class="page-label">Archives Directory</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <h1>Digital Punk Archives Directory</h1>
+  <p class="subtitle">113 digital collections preserving punk history worldwide &mdash; from institutional holdings and zine libraries to Internet Archive uploads and independent community projects.</p>
+</header>
+
+<!-- SEARCH / FILTER BAR -->
+<div class="search-bar">
+  <div class="search-inner">
+    <input type="text" class="search-input" id="search" placeholder="Search by title, location, description&hellip;" aria-label="Search archives">
+    <div class="filter-tags" role="group" aria-label="Filter by type">
+      <button class="filter-btn" data-cat="institutional" data-active="false">Institutional</button>
+      <button class="filter-btn" data-cat="public-library" data-active="false">Public Library</button>
+      <button class="filter-btn" data-cat="museum" data-active="false">Museum</button>
+      <button class="filter-btn" data-cat="independent" data-active="false">Independent</button>
+      <button class="filter-btn" data-cat="internet-archive" data-active="false">Internet Archive</button>
+      <button class="filter-btn" data-cat="zine-library" data-active="false">Zine Library</button>
+      <button class="filter-btn" data-cat="label" data-active="false">Label</button>
+      <button class="filter-btn" data-cat="oral-history" data-active="false">Oral History</button>
+      <button class="filter-btn" data-cat="commercial" data-active="false">Commercial</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<main id="directory">
+  <div class="results-bar">
+    <p class="results-count">Showing <strong id="count">113</strong> of 113 archives</p>
+  </div>
+  <div class="card-grid" id="grid"></div>
+  <p class="empty-state" id="empty" hidden>No archives match your search. Try a different term or clear your filters.</p>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p><a href="index.html">&larr; Back to The Punk Archiving Toolkit</a></p>
+  <p style="margin-top:0.5rem;">A companion to the <a href="https://eastbaypunkda.com" target="_blank" rel="noopener">East Bay Punk Digital Archive</a>, created by Stefano Morello.</p>
+  <p>Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</p>
+</footer>
+
+<script>
+/* ---- DATA ---- */
+var ARCHIVES = [
+  {title:"Ian MacKaye Digital Collection of Punk Fanzines",url:"https://archives.lib.umd.edu/repositories/4/resources/1827",scope:"International punk fanzines, 1978\u20132020",description:"Digitized print fanzines collected by Ian MacKaye (Fugazi, Minor Threat) pertaining to punk music, culture, and scenes both domestic and international.",type:"Institutional collection"},
+  {title:"Cornell University Punk Flyers",url:"https://digital.library.cornell.edu/collections/punkflyers",scope:"National/international punk flyers, primarily SF Bay Area",description:"2,091 digitized images of punk flyers from the Johan Kugelberg and Aaron Cometbus collections. Includes fliers, posters, zines, original art, manuscripts, and venue histories from 1977 to present.",type:"Institutional digital collection"},
+  {title:"Fugazi Live Series",url:"https://dischord.com/fugazi_live_series",scope:"All Fugazi live performances, 1987\u20132003",description:"Archive of 800+ concert recordings, photos, flyers, and show data from Fugazi\u2019s 1,000+ performances. Over 750 recordings available for download.",type:"Label/band archive"},
+  {title:"UCLA Library Special Collections Punk Archive",url:"https://www.library.ucla.edu/collections/library-special-collections-punk-archive/",scope:"Los Angeles and Hollywood punk",description:"Primary source materials from punk musicians, promoters, photographers, and community members including papers, photographs, recordings, oral histories, zines, and ephemera.",type:"Institutional collection"},
+  {title:"Persistent Vision: The DC Punk Collections at UMD",url:"https://exhibitions.lib.umd.edu/dc-punk",scope:"Washington, D.C. punk, 1976 onward",description:"Digital exhibition highlighting digitized materials from the DC punk collections at UMD Special Collections in Performing Arts. Draws from the Sharon Cheslow Punk Flyers collection, fanzine collections, and more.",type:"Institutional digital exhibition"},
+  {title:"UMD D.C. Punk and Indie Fanzine Collection",url:"https://digital.lib.umd.edu/performingarts/punk-fanzines",scope:"Washington, D.C. punk, 1981\u20132023",description:"Over fifty linear feet and thousands of items across 21 individual collections. Includes fliers, posters, recordings, photographs, and ephemera.",type:"Institutional digital collection"},
+  {title:"Kevin Salk Collection of D.C. Punk Photography",url:"https://archives.lib.umd.edu/repositories/4/resources/1849",scope:"Washington, D.C. hardcore punk, 1982\u20131983",description:"Prints of photographs of Washington, D.C. hardcore punk bands, particularly Minor Threat.",type:"Institutional collection"},
+  {title:"Yale Beinecke Library British Punk Archive",url:"https://archives.yale.edu/repositories/11/resources/11816",scope:"British punk; materials from US, Australia, Europe, Asia",description:"Nearly 1,900 punk and anarchist fanzines plus correspondence, writings, artwork, photographs, clothing, stencils, posters, and audiovisual media. Includes dedicated Crass materials.",type:"Institutional collection"},
+  {title:"John Holmstrom Papers and Punk Magazine Records (Yale)",url:"https://archives.yale.edu/repositories/11/resources/920",scope:"New York City punk, 1976\u20131979",description:"Two complete sets of Punk Magazine and related publications, books, fanzines, posters, ephemera, invitations, and promotional materials.",type:"Institutional collection"},
+  {title:"NYU Fales Library \u2014 The Downtown Collection",url:"https://wp.nyu.edu/thedigitaldowntown/",scope:"New York City downtown arts and punk, 1960s\u2013present",description:"Hundreds of archives documenting downtown arts scenes in SoHo, the East Village, and the Lower East Side. Rich in punk rock and no wave post-punk videos, drawings, films, photos, and ephemera.",type:"Institutional digital collection"},
+  {title:"NYU Fales Library \u2014 Riot Grrrl Collection",url:"https://guides.nyu.edu/riot-grrrl",scope:"Riot Grrrl movement, 1989\u20131996",description:"Documents the evolution of the Riot Grrrl movement. Founded when Kathleen Hanna donated her collection. Includes materials relating to feminist and queer-positive punk rock and politics.",type:"Institutional collection"},
+  {title:"NIGHTCLUBBING Archive / GoNightclubbing (NYU Fales)",url:"https://www.gonightclubbing.com",scope:"NYC punk, new wave, no wave, hardcore, 1975\u20131981",description:"82 bands videotaped during 112 performances, 27 on-camera interviews, and thousands of photographs from CBGB\u2019s, Mudd Club, Danceteria, and other venues. Created by Pat Ivers and Emily Armstrong.",type:"Institutional video archive"},
+  {title:"Claremont Colleges Library Punk Archive",url:"https://claremont.as.atlas-sys.com/repositories/3/resources/747",scope:"National punk, early to mid-1980s",description:"Materials including a large run of Maximum Rocknroll (1983\u20132011), band merchandise, and flyers from San Francisco, Los Angeles, and beyond. Includes Exitstencil Press / Crass materials.",type:"Institutional collection"},
+  {title:"University of Connecticut \u2014 Joe Snow Punk Rock Collection",url:"https://archives.lib.uconn.edu/islandora/object/20002%3A20130052",scope:"Connecticut punk and hardcore, late 1970s\u20132000s",description:"Zines, stickers, photographs, show flyers, set lists, and audio recordings on cassette, vinyl, and compact disc.",type:"Institutional collection"},
+  {title:"Gettysburg College \u2014 D.C./Baltimore Punk Collection",url:"https://archives.gettysburg.edu/repositories/4/resources/301",scope:"Baltimore and D.C. punk, 1981\u20131982",description:"Punk zines, music publications, advertisements, and photographs of punk concerts in Baltimore and Washington D.C.",type:"Institutional collection"},
+  {title:"Women Who Rock Oral History Archive (UW)",url:"https://content.lib.washington.edu/wwrweb/",scope:"Women in music scenes across the Americas",description:"60+ oral histories of musicians, producers, journalists, and scholars with a focus on women\u2019s participation in punk and other music communities.",type:"Institutional oral history"},
+  {title:"Chainsaw Records Collection (UW)",url:"https://ischool.uw.edu/capstone/projects/2018/digitizing-queer-punk-history-chainsaw-records-collection",scope:"Queer punk (queercore), Pacific Northwest",description:"Digitization project for the collection of Chainsaw Records founder Donna Dresch, including press clippings, flyers, posters, and zines.",type:"Institutional digitization project"},
+  {title:"England\u2019s Dreaming \u2014 Jon Savage Archive (LJMU)",url:"https://www.ljmu.ac.uk/microsites/library/special-collections-and-archives/popular-music-and-counter-culture/englands-dreaming-the-jon-savage-archive",scope:"British punk, Sex Pistols, counter-culture",description:"Described as the largest punk archive in the world. Fanzines, posters, flyers, graphic designs, letters, photographs, and notebooks charting the history of the Sex Pistols and punk era.",type:"Institutional collection"},
+  {title:"Southern Punk Archive (University of Mississippi)",url:"https://southdocs.org/project/southern-punk-archive/",scope:"Southern United States punk and hardcore",description:"Growing physical and digital repository of videos, photos, fliers, music, films, and oral histories. Special interest in DIY spaces, self-published works, and rural punks. Established 2021.",type:"Institutional/community archive"},
+  {title:"University of Manchester \u2014 British Pop Archive",url:"https://stories.manchester.ac.uk/british-pop-archive/index.html",scope:"British popular culture and youth culture",description:"National collection dedicated to preservation and research of popular culture, counter-culture, and youth culture. Includes Manchester punk and post-punk materials.",type:"Institutional collection"},
+  {title:"Harvard \u2014 Making a Scene Digital Exhibit",url:"https://curiosity.lib.harvard.edu/making-a-scene/feature/this-is-city-music-defining-punk",scope:"Punk culture and history",description:"CURIOSity Digital Exhibit exploring how punk rejected elitism and commercialism and leveled hierarchies between rock stars and fans.",type:"Institutional digital exhibition"},
+  {title:"Barnard College Zine Library (Columbia)",url:"https://zines.barnard.edu/",scope:"Feminist, punk, LGBTQ+, DIY culture",description:"Started in 2003, part of the Columbia University library system. 16,000+ zines catalogued in CLIO covering punk cultures, riot grrrl, LGBTQIA+ experiences, and DIY.",type:"Institutional zine library"},
+  {title:"Online Archive of California \u2014 Riot Grrrl Zines",url:"https://oac.cdlib.org/findaid/ark:/13030/c88g8tq6/dsc/",scope:"Riot Grrrl movement, 1980\u20132024",description:"Hand-made zines spanning three distinct eras: Proto-Riot Grrrl, Riot-Grrrl, and Post-Riot Grrrl.",type:"Institutional collection"},
+  {title:"Vancouver Punk Rock Collection (SFU)",url:"https://digital.lib.sfu.ca/vanpunk-1-collection/vancouver-punk-rock-collection",scope:"Vancouver punk",description:"Approximately 600 posters, 100 CDs/LPs/45s, photographs, periodicals, and ephemera. About 800 of 1,200 posters digitized and searchable online. Includes genealogy of Vancouver punk bands.",type:"Institutional digital collection"},
+  {title:"Cornell \u2014 Riot Grrrl Zine and Music Collection",url:"http://rmc.library.cornell.edu/EAD/htmldocs/RMM08125.html",scope:"Riot grrrl movement",description:"Collection of riot grrrl zines and music materials at Cornell\u2019s Rare and Manuscript Collections.",type:"Institutional collection"},
+  {title:"DC Punk Archive (DC Public Library)",url:"https://www.dclibrary.org/punk",scope:"Washington, D.C. punk, 1976\u2013present",description:"Established 2014. Photographs, zines, sound and video recordings, oral histories, fliers, posters, set lists, and letters. Includes digitized Zine Library and Fliers/Posters collection via DigDC.",type:"Public library digital archive"},
+  {title:"San Francisco Public Library \u2014 SF Punk Archive",url:"https://digitalsf.org/islandora/object/islandora:SFPunkArchive",scope:"San Francisco Bay Area punk, 1973\u20132015",description:"Fliers, posters, zines, photographs, and ephemera documenting SF Bay Area punk. Features Tuxedomoon, the Avengers, the Sleepers, Frightwig, and the Penelope Houston / Avengers Collection.",type:"Public library digital collection"},
+  {title:"SFPL Little Magazine/Zine Collection",url:"https://sfpl.org/locations/main-library/book-arts-special-collections/little-magazine-collection",scope:"SF Bay Area underground/alternative press",description:"Documents the underground/alternative press of the SF Bay Area. More than 4,000 items including punk zines and little magazines.",type:"Public library collection"},
+  {title:"Library of Congress \u2014 AFROPUNK Web Archive",url:"https://www.loc.gov/item/lcwaN0029153/",scope:"Afropunk movement, Black involvement in punk",description:"Web archive capture of AFROPUNK documenting the cultural movement encompassing Black individuals in punk and alternative subcultures.",type:"Government web archive"},
+  {title:"British Library \u2014 Punk Collection",url:"https://blogs.bl.uk/living-knowledge/2016/07/never-mind-the-british-library-heres-punk.html",scope:"British punk, 1976\u20131978",description:"John Peel artifacts, Vivienne Westwood designs, 6,000-strong punk record collection, audio-visual materials, magazines, and fanzines.",type:"National library collection"},
+  {title:"State Library of Victoria \u2014 Zine Collection",url:"https://www.slv.vic.gov.au/search-discover/explore-collections-format/zines-comics-graphic-novels",scope:"Australian zines including punk",description:"Largest public collection of zines in Australia. Includes ground-breaking 1970s punk zines, Australian underground press, and artist books.",type:"State library collection"},
+  {title:"Victoria and Albert Museum \u2014 Punk Collection",url:"https://collections.vam.ac.uk/search/?q=punk",scope:"British punk fashion and design",description:"Searchable online database includes punk-related fashion items and Vivienne Westwood\u2019s punk-era designs.",type:"Museum digital collection"},
+  {title:"Minneapolis Institute of Art \u2014 Fly Zine Archive",url:"https://new.artsmia.org/stories/rebel-voice-inside-the-fly-zine-archive-a-chronicle-of-punk-queer-and-diy-counterculture",scope:"Punk, squatter, anarchist, and DIY culture, 1980s\u2013present",description:"Over 1,900 art objects from around the world documenting punk, queer, and DIY counterculture. Available in the Herschel V. Jones Print Study Room and online.",type:"Museum collection"},
+  {title:"Museum of Youth Culture \u2014 Punk Collection",url:"https://www.museumofyouthculture.com/punk/",scope:"UK punk and youth culture",description:"Celebrates 100 years of youth culture through photographs, ephemera, and stories. Includes punk-specific documentation.",type:"Museum collection"},
+  {title:"The Punk Rock Museum",url:"https://www.thepunkrockmuseum.com/",scope:"National/international punk history",description:"12,000 sq. ft. museum in Las Vegas founded by Fat Mike (NOFX) in 2023. Over 1,000 artifacts including flyers, artwork, clothing, and instruments.",type:"Museum"},
+  {title:"East Bay Punk Digital Archive (EBP-DA)",url:"https://eastbaypunkda.com/",scope:"SF Bay Area punk, early 1980s\u2013mid-1990s",description:"Open-access digital humanities project preserving literary production of participants in the punk-rock commons. Zines, flyers, catalogues, and posters from personal collections. Created by Stefano Morello.",type:"Independent digital archive"},
+  {title:"Punk Archive NYC",url:"https://punkarchivenyc.org/",scope:"New York City punk and underground music",description:"Dedicated to preserving New York\u2019s punk culture and other music from the underground.",type:"Independent archive"},
+  {title:"Punks On Paper \u2014 NC Punk and Hardcore Flyer Archive",url:"https://www.headfirstrecords.com/NCshows/",scope:"North Carolina punk and hardcore, late 1970s\u2013present",description:"Digital archive of NC punk and hardcore show flyers and posters. Over 5,000 shows listed.",type:"Independent flyer archive"},
+  {title:"Freedom Has No Bounds \u2014 Philadelphia Punk Gigography",url:"https://www.freedomhasnobounds.com/",scope:"Philadelphia punk, 1977\u20131987",description:"Gigography compiled from flyers, fanzines, websites, and newspapers. Includes bootleg recordings and video.",type:"Independent archive"},
+  {title:"Punk in the East",url:"https://punkintheeast.co.uk/",scope:"Norwich, Norfolk, and East Anglia punk",description:"Digital collection of punk photographs, gig tickets, posters, clothing, and ephemera. One of the largest digital UK punk archives. Created 2016.",type:"Community digital archive"},
+  {title:"British Culture Archive \u2014 Punk",url:"https://britishculturearchive.co.uk/the-peoples-archive-punk/",scope:"UK punk, 1970s\u20131980s",description:"Non-profit photography archive featuring The People\u2019s Archive \u2014 Punk section. Includes work by Janette Beckman and Wayne Large.",type:"Independent photography archive"},
+  {title:"Alice Bag \u2014 Women in L.A. Punk Archives",url:"https://alicebag.com/women-in-la-punk",scope:"Women in early Southern California punk, pre-1980",description:"Since 2004, documenting the experiences of women in the first wave of the Southern California punk scene.",type:"Independent archive"},
+  {title:"Contextual Dissemination",url:"https://www.contextualdissemination.com/",scope:"International punk fanzines, 1977 onward",description:"Punk fanzine archive making underground, out-of-print punk zines accessible to anyone doing research.",type:"Independent zine archive"},
+  {title:"Circulation Zero",url:"https://www.circulationzero.com/",scope:"LA, NYC, Boston, SF punk zines, 1977\u20131984",description:"Complete digital collections of Slash, No Mag, Damage, Dry, and Boston Rock as single searchable PDFs.",type:"Independent zine archive"},
+  {title:"HeartattaCk Archive",url:"http://heartattackarchive.com/",scope:"DIY punk/hardcore, 1990s\u20132000s",description:"Archive of HeartattaCk zine issues published by Kent McClard of Ebullition Records.",type:"Independent zine archive"},
+  {title:"Detroit Punk Archive",url:"https://www.instagram.com/detroitpunkarchive/",scope:"Detroit punk, 1977\u20131983",description:"Knight Foundation-funded project chronicling Detroit\u2019s punk scene centered around Bookie\u2019s Club 870. Released compilations with previously unreleased tracks.",type:"Independent/community archive"},
+  {title:"Manchester Digital Music Archive",url:"https://www.mdmarchive.co.uk/",scope:"Greater Manchester music including punk and post-punk",description:"Community-driven archive where users upload personal artefacts with associated memories. Over 1,800 digitised Piccadilly Radio tapes. Set up 2006.",type:"Community digital archive"},
+  {title:"Queer Zine Archive Project (QZAP)",url:"https://www.qzap.org/",scope:"Queer zines including queercore punk",description:"Launched 2003 to preserve queer zines. Over 2,500 zines collected, nearly 600 digitized and freely accessible online.",type:"Independent zine archive"},
+  {title:"Maximum Rocknroll Digital Archive",url:"https://www.maximumrocknroll.com/archive/",scope:"International DIY punk, 1982\u20132019",description:"Complete print run being digitized, each issue catalogued to article level as searchable PDF, free of charge. MRR offices house 50,000+ records, demo tapes, zines, and flyers.",type:"Independent zine/magazine archive"},
+  {title:"Maximum Rocknroll Radio Archive",url:"https://radio.maximumrocknroll.com/radio-archive/",scope:"International DIY punk",description:"Archive of MRR Radio episodes \u2014 weekly radio show and podcast featuring DIY punk, garage rock, and hardcore with rotating DJs.",type:"Independent audio archive"},
+  {title:"Razorcake",url:"https://razorcake.org/",scope:"DIY punk rock, Los Angeles-based",description:"501(c)(3) non-profit punk magazine. Past issues available free online. The only bona fide non-profit music magazine in America. Founded 2001.",type:"Independent magazine archive"},
+  {title:"CrimethInc \u2014 Inside Front Archive",url:"https://crimethinc.com/categories/inside-front",scope:"Hardcore punk and anarchist action, 1993\u20132003",description:"Digitized entire run of Inside Front: International Journal of Hardcore Punk and Anarchist Action. Issues available as color PDF downloads.",type:"Independent zine archive"},
+  {title:"DIY Conspiracy \u2014 From The Archives",url:"https://diyconspiracy.net/category/features/punk-archives/",scope:"International DIY punk and hardcore",description:"Web journal since 2005 republishing out-of-print interviews, articles, and publications from the punk underground.",type:"Independent publication"},
+  {title:"Punk Pedagogy",url:"https://punkpedagogy.com/",scope:"Punk archiving resources (meta-archive)",description:"Curated lists of Punk Archives Made by Punks, Academic Zine Archives, and Digital and Offline Public Archives.",type:"Independent resource hub"},
+  {title:"Please Kill Me",url:"https://pleasekillme.com/",scope:"National punk history, culture, art",description:"Website companion to the seminal oral history book. Covers music, art, culture, fashion, poetry, and movies from the 1960s onward.",type:"Independent cultural website"},
+  {title:"AFROPUNK",url:"https://afropunk.com/",scope:"Black punk and alternative culture",description:"Organization celebrating Black culture through punk. Grew from James Spooner\u2019s 2003 documentary. Web-archived by Library of Congress.",type:"Independent cultural platform"},
+  {title:"Riot Grrrl Archive (CUNY)",url:"https://riotgrrrlarchive.commons.gc.cuny.edu/",scope:"Riot Grrrl movement",description:"Free online resource guide compiling links to available riot grrrl information, music, zines, and artwork.",type:"Independent resource guide"},
+  {title:"Old Punk Flyers",url:"https://oldpunkflyers.tumblr.com/",scope:"Vintage punk flyers, national/international",description:"Tumblr-based collection of vintage punk show flyers.",type:"Independent flyer archive"},
+  {title:"The Chicago Punk Database",url:"https://punkdatabase.com/wiki/Main_Page",scope:"Chicago punk scene, primarily pre-1990",description:"Wiki-style database documenting Chicago punk bands, venues, and scene history.",type:"Independent community wiki"},
+  {title:"Louisville Hardcore Archive",url:"https://louisvillehardcorearchive.com/",scope:"Louisville, Kentucky hardcore punk, 1980s",description:"Digital archive preserving the history, photos, and stories of Louisville\u2019s 1980s hardcore punk scene.",type:"Independent archive"},
+  {title:"MNPunk.com",url:"http://mnpunk.com/",scope:"Minnesota punk and hardcore",description:"Website documenting every band connected to the punk scene in Minnesota, from well-known acts to obscure basement bands.",type:"Independent archive"},
+  {title:"Sacramento Music Archive",url:"https://sacramentomusicarchive.com/",scope:"Sacramento and Northern California music incl. punk",description:"501(c)(3) nonprofit with 5,000+ shows on VHS, reel-to-reel, and cassette. Includes early footage of Nirvana, Metallica, Green Day, and extensive underground punk documentation.",type:"Independent nonprofit archive"},
+  {title:"Austin Texas Punk Archive (Visual Vitriol)",url:"https://austinpunk.wordpress.com/",scope:"Austin, Texas punk",description:"Visual history of Austin punk flyers, photographs, fanzines, record art, and posters.",type:"Independent archive"},
+  {title:"UKHC Archive",url:"https://www.ukhcarchive.co.uk/",scope:"UK hardcore and punk",description:"Digital archive of hardcore and punk history in the UK.",type:"Independent archive"},
+  {title:"Punk77",url:"https://punk77.co.uk/",scope:"UK punk, mid-1970s onward",description:"Downloadable/readable punk fanzines, historical documentation, and extensive resources on UK punk bands and culture.",type:"Independent archive"},
+  {title:"Kill Your Pet Puppy (KYPP)",url:"https://killyourpetpuppy.co.uk/news/",scope:"UK anarcho-punk, early 1980s",description:"Blog-based archive of rare ephemera from the early 1980s UK anarcho-punk movement. Named after the original KYPP zine (1979\u20131984).",type:"Independent blog archive"},
+  {title:"MayDayRooms Anarcho-Punk Archive",url:"https://maydayrooms.org/anarcho-punk-archive/",scope:"UK anarcho-punk ephemera",description:"Bulletins, campaign leaflets, posters, zines, and discussion documents from the anarcho-punk movement.",type:"Independent archive"},
+  {title:"European Punk and Hardcore Archive",url:"https://europunk.wordpress.com/",scope:"European punk/indie/garage rock (multi-country)",description:"Flyers, photos, and posters spanning Germany, Hungary, Ireland, Italy, Netherlands, Poland, Spain, Sweden, Switzerland, and UK.",type:"Independent archive"},
+  {title:"Polish Punk Archive",url:"https://polishpunkarchive.pl/",scope:"Polish punk culture",description:"Digital resource dedicated to documenting Polish punk culture and history.",type:"Independent archive"},
+  {title:"Swedish Punk Fanzines",url:"http://www.swedishpunkfanzines.com/",scope:"Swedish and Nordic punk, hardcore, black metal",description:"Tape archive (~600 tapes), record archive, and collections of interviews. Documentation of essential Nordic hardcore releases.",type:"Independent archive"},
+  {title:"Inner City Sound Archive",url:"http://www.innercitysound.com.au/",scope:"Australian punk and post-punk, 1976\u20131985",description:"Digital music archive focused on Australian indie/alternative vinyl from the punk/post-punk era.",type:"Independent archive"},
+  {title:"Punk Journey \u2014 Melbourne Punk Photography",url:"https://www.punkjourney.com/",scope:"Melbourne, Australia punk scene",description:"Photographic history of the Melbourne punk scene documenting record labels, stores, and venues.",type:"Independent photography archive"},
+  {title:"Kyouki no Nihon",url:"https://kyoukinonihon.home.blog/",scope:"Japanese hardcore punk",description:"Blog with extensive coverage of classic and contemporary Japanese hardcore punk bands, releases, and discographies.",type:"Independent blog archive"},
+  {title:"Unite Asia",url:"https://uniteasia.org/",scope:"Punk, hardcore, and metal across Asia",description:"News platform covering punk/hardcore/metal scenes from Myanmar, Japan, China, Nepal, Thailand, India, and other Asian countries.",type:"Independent media"},
+  {title:"Malaysia Design Archive \u2014 Punk Zines",url:"https://search.malaysiadesignarchive.org/collections/punk-zines/",scope:"Malaysian punk zines",description:"Collection of punk zines within the broader Malaysia Design Archive.",type:"Independent archive"},
+  {title:"Midwest Indie, Punk, and Hardcore Archive",url:"https://midwestpunk.wordpress.com/",scope:"Midwest US indie, punk, and hardcore",description:"Archive covering bands and resources from Cleveland, Detroit, and other Midwest cities.",type:"Independent archive"},
+  {title:"Letterform Archive \u2014 Punk Flyers of the Bay Area",url:"https://letterformarchive.org/news/punk-flyers-of-san-francisco/",scope:"SF Bay Area punk, 1970s\u20131980s",description:"About 140 posters, flyers, and handbills for bands and venues integral to Bay Area punk culture. Browsable in Online Archive.",type:"Independent design archive"},
+  {title:"Maximum Rocknroll (Internet Archive)",url:"https://archive.org/details/maximumrnr",scope:"International DIY punk, 1982\u20132019",description:"Hundreds of digitized MRR issues in PDF, EPUB, and full-text searchable formats.",type:"Internet Archive collection"},
+  {title:"Punk Planet Archive (Internet Archive)",url:"https://archive.org/details/punkplanet",scope:"Punk culture, 1994\u20132007",description:"Over 56 GB of PDFs from Punk Planet magazine, the influential Chicago-based punk culture publication.",type:"Internet Archive collection"},
+  {title:"Miscellaneous Punk Zines (Internet Archive)",url:"https://archive.org/details/misczinespunk",scope:"Various international punk zines, 1970s\u20132000s",description:"German punk zines (Plastic Bomb, Ox), British publications, and other miscellaneous punk-related publications.",type:"Internet Archive collection"},
+  {title:"Razorcake (Internet Archive)",url:"https://archive.org/details/razorcake",scope:"DIY punk, 2001\u20132018",description:"Issues of Razorcake, the longest-running active DIY punk zine in the US, in scanned and PDF formats.",type:"Internet Archive collection"},
+  {title:"Digital Fanzine Preservation Society",url:"https://archive.org/details/digitalfanzinepreservationsociety",scope:"Hardcore/punk fanzines, 1980s\u20131990s",description:"100+ hardcore and punk fanzines remastered by Nagus (2009\u20132011). Includes Hardware, Quick Fix, Combat Stance, In Effect, Monkeybite, Inside Front.",type:"Internet Archive collection"},
+  {title:"Slash Magazine Complete Run (Internet Archive)",url:"https://archive.org/details/slash_circulation_zero",scope:"LA punk, 1977\u20131980",description:"All 29 issues of Slash magazine, one of the essential documents of the LA punk scene.",type:"Internet Archive collection"},
+  {title:"Profane Existence (Internet Archive)",url:"https://archive.org/details/profane_existence_1",scope:"Anarcho-punk, 1989\u20132007",description:"Issues of the Minneapolis-based anarcho-punk zine covering crust punk, anarchism, and DIY culture.",type:"Internet Archive collection"},
+  {title:"Scruffs Vintage Punk Rock Flyers (Internet Archive)",url:"https://archive.org/details/scruffsvintagepunkrockflyers",scope:"Vintage punk rock flyers",description:"Collection of 250 vintage punk rock flyers found at an estate sale.",type:"Internet Archive collection"},
+  {title:"1977 California Punk Rock Flyers (Internet Archive)",url:"https://archive.org/details/1977CaliforniaPunkRockFlyers",scope:"California punk, 1977",description:"Punk rock flyers from 1977 California.",type:"Internet Archive collection"},
+  {title:"Vintage Detroit Punk Rock Flyers (Internet Archive)",url:"https://archive.org/details/Patrick_Scruff_Shaw_Punk_Rock_Flyers",scope:"Detroit punk flyers",description:"Hundreds of punk rock flyers from Detroit compiled by Patrick \u2018Scruff\u2019 Shaw.",type:"Internet Archive collection"},
+  {title:"1980s Tallahassee Punk Flyer Archive (Internet Archive)",url:"https://archive.org/details/1980s-tallahassee-punk-flyer-archive",scope:"Tallahassee, Florida punk, 1980s",description:"Gig flyers from the 1980s Tallahassee punk scene.",type:"Internet Archive collection"},
+  {title:"Boston Punk Flyers 96\u201302 (Internet Archive)",url:"https://archive.org/details/boston_punk_flyers",scope:"Boston punk, 1996\u20132002",description:"Punk flyers documenting the Boston scene in the post-Rathskeller era.",type:"Internet Archive collection"},
+  {title:"San Diego Punk Flyers (Internet Archive)",url:"https://archive.org/details/BOCbitch",scope:"San Diego punk, mid-2000s",description:"Handmade punk flyers from San Diego featuring bands like Gluttony and Basura.",type:"Internet Archive collection"},
+  {title:"Maine Punk Oral History Recordings (Internet Archive)",url:"https://archive.org/details/mainepunkoralhistory",scope:"Maine punk and hardcore",description:"Oral history interviews by Aaron Parker exploring punk and HC music and culture in Maine.",type:"Internet Archive oral history"},
+  {title:"Koleksi Zine Punk Rock \u2014 Malaysia (Internet Archive)",url:"https://archive.org/details/koleksizine",scope:"Malaysian punk zines",description:"7.4 GB collection of punk rock zines from Malaysia.",type:"Internet Archive collection"},
+  {title:"NO ACEPTO: Spanish Hardcore Punk (Internet Archive)",url:"https://archive.org/details/no-acepto-1980-1990-10-anos-de-hardcore-punk-ira-y-caos",scope:"Spanish hardcore punk, 1980\u20131990",description:"Documentary/compilation covering ten years of Spanish hardcore punk.",type:"Internet Archive collection"},
+  {title:"550 Rare Brazilian Demo Tapes (Internet Archive)",url:"https://archive.org/details/550-rare-brazilian-demo-tapes-full-archive",scope:"Brazilian punk/hardcore/underground, 1980s\u20131990s",description:"Vast catalog of Brazilian punk and related demo tapes digitized for preservation.",type:"Internet Archive collection"},
+  {title:"Mexican Punk Academic Archive (Internet Archive)",url:"https://archive.org/details/punkppmex",scope:"Mexican punk and post-punk",description:"Articles and academic theses about punk and post-punk in Mexico covering collectives in Mexico City and other cities.",type:"Internet Archive collection"},
+  {title:"Punk On Wave (POW) Magazine (Internet Archive)",url:"https://archive.org/details/punkonwavepowmagazine1",scope:"Japanese punk",description:"Digitized issues of the Japanese punk fanzine Punk On Wave.",type:"Internet Archive collection"},
+  {title:"Punk Rock Preservation Project (Internet Archive)",url:"https://archive.org/search?query=creator%3A%22The+Punk+Rock+Preservation+Project%22",scope:"Independent punk/hardcore/metal/ska, mostly Canada",description:"Dedicated to preserving hard-to-find obscure independent releases \u2014 demos, compilations, and full albums.",type:"Internet Archive collection"},
+  {title:"Internet Archive \u2014 Live Music Archive",url:"https://archive.org/details/etree",scope:"Live recordings broadly, including punk",description:"250,000+ recordings including punk and hardcore live performances. Free access to lossless and MP3 audio.",type:"Internet Archive audio collection"},
+  {title:"Free Music Archive \u2014 Punk Genre",url:"https://freemusicarchive.org/genre/Punk/",scope:"Punk and post-punk",description:"Interactive library of legal audio downloads including a punk genre section. Originally directed by WFMU.",type:"Digital music archive"},
+  {title:"Spirit of Revolt Archive \u2014 Glasgow (Internet Archive)",url:"https://archive.org/details/PunkFanzineTheDestructors",scope:"Glasgow anarchist and punk press",description:"Punk fanzines, anarchist publications, and political magazines from the John Frew Collection and other Glasgow holdings.",type:"Internet Archive collection"},
+  {title:"Dischord Records Archive",url:"https://dischord.com/",scope:"Washington, D.C. punk and hardcore, 1980\u2013present",description:"Entire 40-year catalog available on Bandcamp for free streaming. Founded by Ian MacKaye and Jeff Nelson. Releases by Minor Threat, Fugazi, Bad Brains.",type:"Label archive"},
+  {title:"Papercut Zine Library",url:"https://www.papercutzinelibrary.com/",scope:"Punk, DIY, and independent media",description:"Free, volunteer-run library in Cambridge, MA with 16,000+ zines. Maintains a virtual library of digital zines online.",type:"Independent zine library"},
+  {title:"Anchor Archive Zine Library",url:"https://anchorarchive.org/",scope:"Punk, hardcore, DIY culture",description:"Searchable collection browsable by category and subject including hardcore punk and riot grrrl.",type:"Independent zine library"},
+  {title:"Salford Zine Library",url:"https://salfordzinelibrary.co.uk/",scope:"International self-published materials incl. punk",description:"Archive of self-published materials with online catalogue. Each zine entry includes descriptions and photos.",type:"Independent zine library"},
+  {title:"LCC Zine Collection \u2014 LGBTQIA+/Queercore",url:"https://lcczinecollection.myblog.arts.ac.uk/lgbtqia-zines/",scope:"Queer zines, queercore",description:"Varied queer zines from the 1980s to present charting the rise of queer zines during the queercore punk movement.",type:"Institutional zine collection"},
+  {title:"CrimethInc Library",url:"https://crimethinc.com/library",scope:"Anarchist and punk texts",description:"Online archive of essays, stories, and texts published under the CrimethInc insignia over the past quarter century.",type:"Independent text archive"},
+  {title:"Akron Sound Museum / Cleveland Memory Project",url:"http://www.clevelandmemory.org/aks/index.html",scope:"Akron/Cleveland music scene",description:"Part of Cleveland State University\u2019s Michael Schwartz Library. Preserves contributions of the Akron area music scene.",type:"Institutional archive"},
+  {title:"Northwest Music Archives",url:"https://nwmusicarchives.com/",scope:"Pacific Northwest music incl. punk/indie",description:"Data about regional music history with emphasis on notable local musicians and labels.",type:"Independent archive"},
+  {title:"Boston Phoenix Archive (Internet Archive)",url:"https://archive.org/details/pub_boston-phoenix",scope:"Boston culture incl. punk coverage, 1973\u20132013",description:"Complete microfilm archive of the Boston Phoenix alternative newspaper which extensively covered Boston\u2019s punk scene.",type:"Internet Archive collection"},
+  {title:"Anarcho-Punk.net",url:"https://www.anarcho-punk.net/",scope:"International anarcho-punk, crust punk",description:"Community site with music downloads and documentation of anarcho-punk and crust punk.",type:"Independent archive"},
+  {title:"Punk Flyer (Punkabilia)",url:"https://www.punkflyer.com/",scope:"Rare original punk flyers and posters, international",description:"Collection of rare original punk flyers, posters, and Seditionaries materials.",type:"Commercial/collector archive"},
+  {title:"Kino Library \u2014 Punk Collection",url:"https://www.kinolibrary.com/collections/subcultures/punk",scope:"UK punk footage",description:"One of the best UK punk film/video collections featuring fashion and performance footage.",type:"Commercial archive"},
+  {title:"RILM Archive of Popular Music Magazines",url:"https://www.rilm.org/rapmm/",scope:"Popular music magazines incl. punk",description:"Scholarly archive of popular music magazines including punk-related publications.",type:"Institutional/scholarly archive"}
+];
+
+/* ---- CATEGORY MAPPING ---- */
+var CATEGORIES = {
+  "institutional":    {label:"Institutional",    tagClass:"tag-guide"},
+  "public-library":   {label:"Public Library",   tagClass:"tag-template"},
+  "museum":           {label:"Museum",           tagClass:"tag-toolkit"},
+  "independent":      {label:"Independent",      tagClass:"tag-zine"},
+  "internet-archive": {label:"Internet Archive", tagClass:"tag-code"},
+  "zine-library":     {label:"Zine Library",     tagClass:"tag-tutorial"},
+  "label":            {label:"Label",            tagClass:"tag-interview"},
+  "oral-history":     {label:"Oral History",     tagClass:"tag-schema"},
+  "commercial":       {label:"Commercial",       tagClass:"tag-tool"}
+};
+
+function getCategory(rawType) {
+  var t = rawType.toLowerCase();
+  if (t.indexOf("internet archive") !== -1) return "internet-archive";
+  if (t.indexOf("zine library") !== -1 || t.indexOf("zine collection") !== -1) return "zine-library";
+  if (t.indexOf("oral history") !== -1) return "oral-history";
+  if (t.indexOf("label") !== -1 || t.indexOf("band archive") !== -1) return "label";
+  if (t.indexOf("commercial") !== -1 || t.indexOf("collector") !== -1) return "commercial";
+  if (t.indexOf("museum") !== -1) return "museum";
+  if (t.indexOf("public library") !== -1 || t.indexOf("national library") !== -1 || t.indexOf("state library") !== -1 || t.indexOf("government") !== -1) return "public-library";
+  if (t.indexOf("institutional") !== -1 || t.indexOf("scholarly") !== -1) return "institutional";
+  return "independent";
+}
+
+/* Pre-compute categories */
+ARCHIVES.forEach(function(a) {
+  a.category = getCategory(a.type);
+  a.categoryLabel = CATEGORIES[a.category].label;
+  a.tagClass = CATEGORIES[a.category].tagClass;
+});
+
+/* ---- DOM ---- */
+var grid = document.getElementById("grid");
+var countEl = document.getElementById("count");
+var emptyEl = document.getElementById("empty");
+var searchInput = document.getElementById("search");
+var filterBtns = document.querySelectorAll(".filter-btn");
+var activeFilters = new Set();
+
+function createCard(a) {
+  var card = document.createElement("div");
+  card.className = "card";
+
+  var header = document.createElement("div");
+  header.className = "card-header";
+
+  var title = document.createElement("h2");
+  title.className = "card-title";
+  var titleLink = document.createElement("a");
+  titleLink.href = a.url;
+  titleLink.target = "_blank";
+  titleLink.rel = "noopener";
+  titleLink.textContent = a.title;
+  title.appendChild(titleLink);
+
+  var tag = document.createElement("span");
+  tag.className = "tag " + a.tagClass;
+  tag.textContent = a.categoryLabel;
+
+  header.appendChild(title);
+  header.appendChild(tag);
+  card.appendChild(header);
+
+  if (a.scope) {
+    var scope = document.createElement("p");
+    scope.className = "card-scope";
+    scope.textContent = a.scope;
+    card.appendChild(scope);
+  }
+
+  var desc = document.createElement("p");
+  desc.className = "card-desc";
+  desc.textContent = a.description;
+  card.appendChild(desc);
+
+  var footer = document.createElement("div");
+  footer.className = "card-footer";
+  var visit = document.createElement("a");
+  visit.className = "card-visit";
+  visit.href = a.url;
+  visit.target = "_blank";
+  visit.rel = "noopener";
+  visit.textContent = "Visit \u2192";
+  footer.appendChild(visit);
+  card.appendChild(footer);
+
+  return card;
+}
+
+function render() {
+  var query = searchInput.value.toLowerCase().trim();
+  var filtered = ARCHIVES.filter(function(a) {
+    if (activeFilters.size > 0 && !activeFilters.has(a.category)) return false;
+    if (query) {
+      var hay = (a.title + " " + a.scope + " " + a.description + " " + a.categoryLabel + " " + a.url).toLowerCase();
+      return hay.indexOf(query) !== -1;
+    }
+    return true;
+  });
+
+  countEl.textContent = filtered.length;
+
+  while (grid.firstChild) grid.removeChild(grid.firstChild);
+
+  if (filtered.length === 0) {
+    emptyEl.hidden = false;
+    return;
+  }
+
+  emptyEl.hidden = true;
+  var fragment = document.createDocumentFragment();
+  filtered.forEach(function(a) {
+    fragment.appendChild(createCard(a));
+  });
+  grid.appendChild(fragment);
+}
+
+/* ---- EVENTS ---- */
+searchInput.addEventListener("input", render);
+
+filterBtns.forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var cat = btn.getAttribute("data-cat");
+    if (activeFilters.has(cat)) {
+      activeFilters.delete(cat);
+      btn.setAttribute("data-active", "false");
+    } else {
+      activeFilters.add(cat);
+      btn.setAttribute("data-active", "true");
+    }
+    render();
+  });
+});
+
+/* Initial render */
+render();
+</script>
+
+</body>
+</html>
