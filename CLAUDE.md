@@ -8,11 +8,14 @@ The Punk Archiving Toolkit is a single-page static website that curates guides, 
 
 ## Architecture
 
-**`index.html`** — The entire site. Single HTML file with all CSS inline in a `<style>` block and a small `<script>` at the bottom (closes the mobile nav on link click). No build step, no package manager, no external dependencies beyond Google Fonts.
+**`index.html`** — The main toolkit page. Single HTML file with all CSS inline in a `<style>` block and a small `<script>` at the bottom (closes the mobile nav on link click). No build step, no package manager, no external dependencies beyond Google Fonts.
+
+**`archives.html`** — Archives Directory. A searchable, filterable catalog of 83 punk archives worldwide. Same architecture: single HTML file, all CSS inline, all data embedded as a JS array. Linked from the toolkit nav ("More +" dropdown) and the Examples section callout.
 
 Supporting files (reference material, not served on the site):
 - `PSN 2026 Paper.docx` — Source paper describing EBP-DA methodology
 - `Punk_Digital_Archive_Permission_Form.docx` — Original permission form (site links to a Google Drive copy)
+- `Digital_Punk_Archives_Directory.xlsx` — Source spreadsheet for the archives directory
 - `Untitled-1.md` — Working notes with resource links
 
 ## Development
@@ -31,7 +34,7 @@ Each section is marked with an HTML comment (e.g. `<!-- PLAN YOUR ARCHIVE -->`).
 
 ## Nav Behavior
 
-- **Desktop**: 7 visible links + a "More +" hover dropdown containing Examples, Go Further, Reading
+- **Desktop**: 7 visible links + a "More +" hover dropdown containing Examples, Archives Directory, Go Further, Reading
 - **Mobile (≤768px)**: CSS-only hamburger menu using a hidden checkbox toggle (`.nav-toggle`). The "More +" label is hidden; all links appear flat. A small script unchecks the toggle when a link is clicked.
 
 ## Design System
@@ -98,6 +101,45 @@ Callouts live inside `.resources` containers alongside resource cards. Do not bo
 
 Contains attribution, methodology interview link, and CC BY-SA 4.0 license statement.
 
+## Archives Directory (`archives.html`)
+
+### Data Model
+
+Each archive entry is a JS object in the `ARCHIVES` array with these fields:
+
+```javascript
+{
+  title: "Archive Name",           // required — display name
+  url: "https://...",              // required — external link
+  scene: "City, State/Country",    // optional — geographic/cultural scene covered
+  years: "1980s–1990s",           // optional — date range of materials (not founding date)
+  inst: "University Name",         // optional — hosting institution
+  description: "...",              // required — what it contains
+  cats: ["zines","flyers","scene"] // required — one or more category keys
+}
+```
+
+Fields `scene`, `years`, and `inst` are displayed on cards as a metadata line separated by middots (·). Only fields with values are shown.
+
+### Categories
+
+Six content-based categories, each mapped to an existing tag class:
+
+| Key | Label | Tag Class |
+|-----|-------|-----------|
+| `zines` | Zines | `.tag-zine` (magenta) |
+| `flyers` | Flyers | `.tag-template` (burnt orange) |
+| `music` | Music | `.tag-tutorial` (blue) |
+| `scene` | Scene | `.tag-guide` (green) |
+| `oral-history` | Oral History | `.tag-interview` (pink-red) |
+| `physical` | Physical | `.tag-archive` (warm brown) |
+
+Entries can have multiple categories (`cats` is an array). Filter buttons use OR logic within categories, AND with search text.
+
+### Card Layout
+
+Title (linked) + tags → metadata line (scene · years · institution) → description → visit link. Cards render via `createCard()` using `document.createElement` (no innerHTML). Responsive grid: 3 columns → 2 at 960px → 1 at 600px.
+
 ## Hosting
 
-Designed for GitHub Pages. Enable Pages from the root of the default branch. No configuration needed — the site is a single `index.html`.
+Designed for GitHub Pages. Enable Pages from the root of the default branch. No configuration needed — the site is `index.html` and `archives.html`.
