@@ -312,16 +312,15 @@
 
     .card-header {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.35rem 0.5rem;
     }
 
     .card-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.3rem;
-      flex-shrink: 0;
     }
 
     .card-title {
@@ -416,6 +415,44 @@
       margin: 0 auto;
     }
 
+    /* ---- CALLOUT ---- */
+
+    .callout {
+      background: var(--bg-alt);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: var(--space-md);
+      max-width: var(--grid-max);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .callout-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    .callout p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    .callout a {
+      color: var(--accent);
+      text-decoration-color: var(--border);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s;
+    }
+
+    .callout a:hover {
+      text-decoration-color: var(--accent);
+    }
+
     /* ---- FOOTER ---- */
 
     footer {
@@ -495,6 +532,10 @@
   </div>
   <div class="card-grid" id="grid"></div>
   <p class="empty-state" id="empty" hidden>No archives match your search. Try a different term or clear your filters.</p>
+  <div class="callout" style="margin-top:2.5rem;">
+    <p class="callout-title">Is your archive missing?</p>
+    <p>If you run a punk archive and it's not listed here, <a href="mailto:veritas44@gmail.com">get in touch</a> and we'll add it.</p>
+  </div>
 </main>
 
 <!-- FOOTER -->
@@ -507,89 +548,89 @@
 <script>
 /* ---- DATA (sorted alphabetically) ---- */
 var ARCHIVES = [
-  {title:"1977 California Punk Rock Flyers (Internet Archive)",url:"https://archive.org/details/1977CaliforniaPunkRockFlyers",scene:"California",years:"1977",description:"Punk rock flyers from 1977 California.",cats:["flyers"]},
-  {title:"1980s Tallahassee Punk Flyer Archive (Internet Archive)",url:"https://archive.org/details/1980s-tallahassee-punk-flyer-archive",scene:"Tallahassee, Florida",years:"1980s",description:"Gig flyers from the 1980s Tallahassee punk scene.",cats:["flyers"]},
-  {title:"550 Rare Brazilian Demo Tapes (Internet Archive)",url:"https://archive.org/details/550-rare-brazilian-demo-tapes-full-archive",scene:"Brazil",years:"1980s\u20131990s",description:"Vast catalog of Brazilian punk and related demo tapes digitized for preservation.",cats:["music"]},
+  {title:"1977 California Punk Rock Flyers",url:"https://archive.org/details/1977CaliforniaPunkRockFlyers",scene:"California",years:"1977",inst:"Internet Archive",description:"Punk rock flyers from 1977 California.",cats:["flyers"]},
+  {title:"1980s Tallahassee Punk Flyer Archive",url:"https://archive.org/details/1980s-tallahassee-punk-flyer-archive",scene:"Tallahassee, Florida",years:"1980s",inst:"Internet Archive",description:"Gig flyers from the 1980s Tallahassee punk scene.",cats:["flyers"]},
+  {title:"550 Rare Brazilian Demo Tapes",url:"https://archive.org/details/550-rare-brazilian-demo-tapes-full-archive",scene:"Brazil",years:"1980s\u20131990s",inst:"Internet Archive",description:"Vast catalog of Brazilian punk and related demo tapes digitized for preservation.",cats:["music"]},
   {title:"Akron Sound Museum / Cleveland Memory Project",url:"http://www.clevelandmemory.org/aks/index.html",scene:"Akron / Cleveland, Ohio",inst:"Cleveland State University",description:"Preserves contributions of the Akron area music scene through the Michael Schwartz Library.",cats:["scene","music"]},
   {title:"Alice Bag \u2014 Women in L.A. Punk Archives",url:"https://alicebag.com/women-in-la-punk",scene:"Los Angeles, California",years:"pre-1980",description:"Documenting the experiences of women in the first wave of the Southern California punk scene since 2004.",cats:["scene"]},
   {title:"Anarcho-Punk.net",url:"https://www.anarcho-punk.net/",scene:"International",description:"Community site with music downloads and documentation of anarcho-punk and crust punk.",cats:["scene","music"]},
   {title:"Anchor Archive Zine Library",url:"https://anchorarchive.org/",scene:"Halifax, Nova Scotia",description:"Searchable collection browsable by category and subject including hardcore punk and riot grrrl.",cats:["zines"]},
   {title:"Austin Texas Punk Archive (Visual Vitriol)",url:"https://austinpunk.wordpress.com/",scene:"Austin, Texas",description:"Visual history of Austin punk flyers, photographs, fanzines, record art, and posters.",cats:["flyers","zines"]},
   {title:"Barnard College Zine Library",url:"https://zines.barnard.edu/",inst:"Barnard College",description:"16,000+ zines catalogued in CLIO covering punk cultures, riot grrrl, LGBTQIA+ experiences, and DIY. Started in 2003.",cats:["physical","zines"]},
-  {title:"Boston Phoenix Archive (Internet Archive)",url:"https://archive.org/details/pub_boston-phoenix",scene:"Boston, Massachusetts",years:"1973\u20132013",description:"Complete microfilm archive of the Boston Phoenix alternative newspaper which extensively covered Boston\u2019s punk scene.",cats:["scene","zines"]},
-  {title:"Boston Punk Flyers 96\u201302 (Internet Archive)",url:"https://archive.org/details/boston_punk_flyers",scene:"Boston, Massachusetts",years:"1996\u20132002",description:"Punk flyers documenting the Boston scene in the post-Rathskeller era.",cats:["flyers"]},
+  {title:"Boston Phoenix Archive",url:"https://archive.org/details/pub_boston-phoenix",scene:"Boston, Massachusetts",years:"1973\u20132013",inst:"Internet Archive",description:"Complete microfilm archive of the Boston Phoenix alternative newspaper which extensively covered Boston\u2019s punk scene.",cats:["scene","zines"]},
+  {title:"Boston Punk Flyers 96\u201302",url:"https://archive.org/details/boston_punk_flyers",scene:"Boston, Massachusetts",years:"1996\u20132002",inst:"Internet Archive",description:"Punk flyers documenting the Boston scene in the post-Rathskeller era.",cats:["flyers"]},
   {title:"The Chicago Punk Database",url:"https://punkdatabase.com/wiki/Main_Page",scene:"Chicago, Illinois",years:"pre-1990",description:"Wiki-style database documenting Chicago punk bands, venues, and scene history.",cats:["scene"]},
   {title:"Circulation Zero",url:"https://www.circulationzero.com/",scene:"Los Angeles / New York / Boston / San Francisco",years:"1977\u20131984",description:"Complete digital collections of Slash, No Mag, Damage, Dry, and Boston Rock as single searchable PDFs.",cats:["zines"]},
-  {title:"Claremont Colleges Library Punk Archive",url:"https://claremont.as.atlas-sys.com/repositories/3/resources/747",scene:"San Francisco / Los Angeles",years:"1983\u20132011",inst:"Claremont Colleges",description:"Materials including a large run of Maximum Rocknroll, band merchandise, and flyers. Includes Exitstencil Press / Crass materials.",cats:["physical","zines","flyers"]},
-  {title:"Cornell \u2014 Riot Grrrl Zine and Music Collection",url:"http://rmc.library.cornell.edu/EAD/htmldocs/RMM08125.html",scene:"Riot Grrrl movement",inst:"Cornell University",description:"Collection of riot grrrl zines and music materials at Cornell\u2019s Rare and Manuscript Collections.",cats:["physical","zines","music"]},
-  {title:"Cornell University Punk Flyers",url:"https://digital.library.cornell.edu/collections/punkflyers",scene:"San Francisco Bay Area",years:"1977\u2013present",inst:"Cornell University",description:"2,091 digitized images of punk flyers from the Johan Kugelberg and Aaron Cometbus collections. Includes fliers, posters, zines, original art, manuscripts, and venue histories.",cats:["flyers","zines"]},
+  {title:"Punk Archive",url:"https://claremont.as.atlas-sys.com/repositories/3/resources/747",scene:"San Francisco / Los Angeles",years:"1983\u20132011",inst:"Claremont Colleges",description:"Materials including a large run of Maximum Rocknroll, band merchandise, and flyers. Includes Exitstencil Press / Crass materials.",cats:["physical","zines","flyers"]},
+  {title:"Riot Grrrl Zine and Music Collection",url:"http://rmc.library.cornell.edu/EAD/htmldocs/RMM08125.html",scene:"Riot Grrrl movement",inst:"Cornell University",description:"Collection of riot grrrl zines and music materials at Cornell\u2019s Rare and Manuscript Collections.",cats:["physical","zines","music"]},
+  {title:"Punk Flyers Collection",url:"https://digital.library.cornell.edu/collections/punkflyers",scene:"San Francisco Bay Area",years:"1977\u2013present",inst:"Cornell University",description:"2,091 digitized images of punk flyers from the Johan Kugelberg and Aaron Cometbus collections. Includes fliers, posters, zines, original art, manuscripts, and venue histories.",cats:["flyers","zines"]},
   {title:"CrimethInc \u2014 Inside Front Archive",url:"https://crimethinc.com/categories/inside-front",years:"1993\u20132003",description:"Digitized entire run of Inside Front: International Journal of Hardcore Punk and Anarchist Action. Issues available as color PDF downloads.",cats:["zines"]},
   {title:"CrimethInc Library",url:"https://crimethinc.com/library",description:"Online archive of essays, stories, and texts published under the CrimethInc insignia over the past quarter century.",cats:["scene","zines"]},
   {title:"DC Punk Archive",url:"https://digdc.dclibrary.org/do/2b8435ca-71ba-4674-b3a4-7da2ed280c5e",scene:"Washington, D.C.",years:"1976\u2013present",inst:"DC Public Library",description:"Photographs, zines, sound and video recordings, oral histories, fliers, posters, set lists, and letters. Includes digitized Zine Library and Fliers/Posters collection via DigDC. Established 2014.",cats:["scene","zines","flyers","oral-history","music"]},
-  {title:"Digital Fanzine Preservation Society (Internet Archive)",url:"https://archive.org/details/digitalfanzinepreservationsociety",years:"1980s\u20131990s",description:"100+ hardcore and punk fanzines remastered by Nagus (2009\u20132011). Includes Hardware, Quick Fix, Combat Stance, In Effect, Monkeybite, Inside Front.",cats:["zines"]},
+  {title:"Digital Fanzine Preservation Society",url:"https://archive.org/details/digitalfanzinepreservationsociety",years:"1980s\u20131990s",inst:"Internet Archive",description:"100+ hardcore and punk fanzines remastered by Nagus (2009\u20132011). Includes Hardware, Quick Fix, Combat Stance, In Effect, Monkeybite, Inside Front.",cats:["zines"]},
   {title:"DIY Conspiracy \u2014 From The Archives",url:"https://diyconspiracy.net/category/features/punk-archives/",scene:"International",description:"Web journal republishing out-of-print interviews, articles, and publications from the punk underground since 2005.",cats:["scene"]},
   {title:"East Bay Punk Digital Archive (EBP-DA)",url:"https://eastbaypunkda.com/",scene:"East Bay / San Francisco, California",years:"early 1980s\u2013mid-1990s",description:"Open-access digital humanities project preserving literary production of participants in the punk-rock commons. Zines, flyers, catalogues, and posters from personal collections. Created by Stefano Morello.",cats:["scene","zines","flyers"]},
   {title:"England\u2019s Dreaming \u2014 Jon Savage Archive",url:"https://archives.ljmu.ac.uk/Record.aspx?src=Catalog&id=ED",scene:"United Kingdom",inst:"Liverpool John Moores University",description:"Described as the largest punk archive in the world. Fanzines, posters, flyers, graphic designs, letters, photographs, and notebooks charting the history of the Sex Pistols and punk era.",cats:["physical","zines","flyers"]},
   {title:"European Punk and Hardcore Archive",url:"https://europunk.wordpress.com/",scene:"Europe",description:"Flyers, photos, and posters spanning Germany, Hungary, Ireland, Italy, Netherlands, Poland, Spain, Sweden, Switzerland, and UK.",cats:["scene","flyers"]},
   {title:"Fugazi Live Series",url:"https://dischord.com/fugazi_live_series",years:"1987\u20132003",inst:"Dischord Records",description:"Archive of 800+ concert recordings, photos, flyers, and show data from Fugazi\u2019s 1,000+ performances. Over 750 recordings available for download.",cats:["music","flyers"]},
-  {title:"Gettysburg College \u2014 D.C./Baltimore Punk Collection",url:"https://archives.gettysburg.edu/repositories/4/resources/301",scene:"Baltimore / Washington, D.C.",years:"1981\u20131982",inst:"Gettysburg College",description:"Punk zines, music publications, advertisements, and photographs of punk concerts.",cats:["physical","zines","flyers"]},
+  {title:"D.C./Baltimore Punk Collection",url:"https://archives.gettysburg.edu/repositories/4/resources/301",scene:"Baltimore / Washington, D.C.",years:"1981\u20131982",inst:"Gettysburg College",description:"Punk zines, music publications, advertisements, and photographs of punk concerts.",cats:["physical","zines","flyers"]},
   {title:"HeartattaCk Archive",url:"http://heartattackarchive.com/",years:"1990s\u20132000s",description:"Archive of HeartattaCk zine issues published by Kent McClard of Ebullition Records.",cats:["zines"]},
-  {title:"Internet Archive \u2014 Live Music Archive",url:"https://archive.org/details/etree",inst:"Internet Archive",description:"250,000+ recordings including punk and hardcore live performances. Free access to lossless and MP3 audio.",cats:["music"]},
+  {title:"Live Music Archive",url:"https://archive.org/details/etree",inst:"Internet Archive",description:"250,000+ recordings including punk and hardcore live performances. Free access to lossless and MP3 audio.",cats:["music"]},
   {title:"John Holmstrom Papers and Punk Magazine Records",url:"https://archives.yale.edu/repositories/11/resources/920",scene:"New York City",years:"1976\u20131979",inst:"Yale University",description:"Two complete sets of Punk Magazine and related publications, books, fanzines, posters, ephemera, invitations, and promotional materials.",cats:["physical","zines","flyers"]},
-  {title:"Kino Library \u2014 Punk Collection",url:"https://www.kinolibrary.com/collections/subcultures/punk",scene:"United Kingdom",inst:"Kino Library",description:"One of the best UK punk film/video collections featuring fashion and performance footage.",cats:["scene"]},
-  {title:"Koleksi Zine Punk Rock \u2014 Malaysia (Internet Archive)",url:"https://archive.org/details/koleksizine",scene:"Malaysia",description:"7.4 GB collection of punk rock zines from Malaysia.",cats:["zines"]},
+  {title:"Punk Film Collection",url:"https://www.kinolibrary.com/collections/subcultures/punk",scene:"United Kingdom",inst:"Kino Library",description:"One of the best UK punk film/video collections featuring fashion and performance footage.",cats:["scene"]},
+  {title:"Koleksi Zine Punk Rock",url:"https://archive.org/details/koleksizine",scene:"Malaysia",inst:"Internet Archive",description:"7.4 GB collection of punk rock zines from Malaysia.",cats:["zines"]},
   {title:"Larry Livermore Papers",url:"http://rmc.library.cornell.edu/EAD/htmldocs/RMM08749.html",scene:"East Bay, California",years:"1947\u20132015",inst:"Cornell University",description:"Papers of Lawrence Livermore, co-founder of Lookout Records and editor of Lookout magazine. Includes materials from his columns for Maximum Rocknroll and Punk Planet, and broader involvement in punk rock and counterculture.",cats:["physical","zines"]},
-  {title:"LCC Zine Collection \u2014 LGBTQIA+/Queercore",url:"https://lcczinecollection.myblog.arts.ac.uk/lgbtqia-zines/",years:"1980s\u2013present",inst:"London College of Communication",description:"Varied queer zines charting the rise of queer zines during the queercore punk movement.",cats:["zines"]},
-  {title:"Letterform Archive \u2014 Punk Flyers of the Bay Area",url:"https://oa.letterformarchive.org/?dims=Format,Decade&vals0=Flyer&sortby=collection&vals1=1970s,1980s&searchText=punk",scene:"San Francisco Bay Area",years:"1970s\u20131980s",inst:"Letterform Archive",description:"About 140 posters, flyers, and handbills for bands and venues integral to Bay Area punk culture.",cats:["flyers"]},
+  {title:"LGBTQIA+/Queercore Zine Collection",url:"https://lcczinecollection.myblog.arts.ac.uk/lgbtqia-zines/",years:"1980s\u2013present",inst:"London College of Communication",description:"Varied queer zines charting the rise of queer zines during the queercore punk movement.",cats:["zines"]},
+  {title:"Punk Flyers of the Bay Area",url:"https://oa.letterformarchive.org/?dims=Format,Decade&vals0=Flyer&sortby=collection&vals1=1970s,1980s&searchText=punk",scene:"San Francisco Bay Area",years:"1970s\u20131980s",inst:"Letterform Archive",description:"About 140 posters, flyers, and handbills for bands and venues integral to Bay Area punk culture.",cats:["flyers"]},
   {title:"Louisville Hardcore Archive",url:"https://louisvillehardcorearchive.com/",scene:"Louisville, Kentucky",years:"1980s",description:"Digital archive preserving the history, photos, and stories of Louisville\u2019s 1980s hardcore punk scene.",cats:["scene"]},
-  {title:"Maine Punk Oral History Recordings (Internet Archive)",url:"https://archive.org/details/mainepunkoralhistory",scene:"Maine",description:"Oral history interviews by Aaron Parker exploring punk and HC music and culture in Maine.",cats:["oral-history"]},
-  {title:"Malaysia Design Archive \u2014 Punk Zines",url:"https://search.malaysiadesignarchive.org/collections/punk-zines/",scene:"Malaysia",inst:"Malaysia Design Archive",description:"Collection of punk zines within the broader Malaysia Design Archive.",cats:["zines"]},
-  {title:"Maximum Rocknroll (Internet Archive)",url:"https://archive.org/details/maximumrnr",scene:"International",years:"1982\u20132019",description:"Hundreds of digitized MRR issues in PDF, EPUB, and full-text searchable formats.",cats:["zines"]},
+  {title:"Maine Punk Oral History Recordings",url:"https://archive.org/details/mainepunkoralhistory",scene:"Maine",inst:"Internet Archive",description:"Oral history interviews by Aaron Parker exploring punk and HC music and culture in Maine.",cats:["oral-history"]},
+  {title:"Malaysian Punk Zines",url:"https://search.malaysiadesignarchive.org/collections/punk-zines/",scene:"Malaysia",inst:"Malaysia Design Archive",description:"Collection of punk zines within the broader Malaysia Design Archive.",cats:["zines"]},
+  {title:"Maximum Rocknroll",url:"https://archive.org/details/maximumrnr",scene:"International",years:"1982\u20132019",inst:"Internet Archive",description:"Hundreds of digitized MRR issues in PDF, EPUB, and full-text searchable formats.",cats:["zines"]},
   {title:"Maximum Rocknroll Digital Archive",url:"https://www.maximumrocknroll.com/archive/",scene:"International",years:"1982\u20132019",description:"Complete print run being digitized, each issue catalogued to article level as searchable PDF, free of charge. MRR offices house 50,000+ records, demo tapes, zines, and flyers.",cats:["zines"]},
-  {title:"Mexican Punk Academic Archive (Internet Archive)",url:"https://archive.org/details/punkppmex",scene:"Mexico",description:"Articles and academic theses about punk and post-punk in Mexico covering collectives in Mexico City and other cities.",cats:["scene"]},
+  {title:"Mexican Punk Academic Archive",url:"https://archive.org/details/punkppmex",scene:"Mexico",inst:"Internet Archive",description:"Articles and academic theses about punk and post-punk in Mexico covering collectives in Mexico City and other cities.",cats:["scene"]},
   {title:"Midwest Indie, Punk, and Hardcore Archive",url:"https://midwestpunk.wordpress.com/",scene:"Midwest United States",description:"Archive covering bands and resources from Cleveland, Detroit, and other Midwest cities.",cats:["scene"]},
-  {title:"Miscellaneous Punk Zines (Internet Archive)",url:"https://archive.org/details/misczinespunk",scene:"International",years:"1970s\u20132000s",description:"German punk zines (Plastic Bomb, Ox), British publications, and other miscellaneous punk-related publications.",cats:["zines"]},
+  {title:"Miscellaneous Punk Zines",url:"https://archive.org/details/misczinespunk",scene:"International",years:"1970s\u20132000s",inst:"Internet Archive",description:"German punk zines (Plastic Bomb, Ox), British publications, and other miscellaneous punk-related publications.",cats:["zines"]},
   {title:"MNPunk.com",url:"http://mnpunk.com/",scene:"Minnesota",description:"Website documenting every band connected to the punk scene in Minnesota, from well-known acts to obscure basement bands.",cats:["scene"]},
-  {title:"Museum of Youth Culture \u2014 Punk Collection",url:"https://www.museumofyouthculture.com/punk/",scene:"United Kingdom",inst:"Museum of Youth Culture",description:"Celebrates 100 years of youth culture through photographs, ephemera, and stories. Includes punk-specific documentation.",cats:["scene"]},
+  {title:"Punk and Youth Culture Collection",url:"https://www.museumofyouthculture.com/punk/",scene:"United Kingdom",inst:"Museum of Youth Culture",description:"Celebrates 100 years of youth culture through photographs, ephemera, and stories. Includes punk-specific documentation.",cats:["scene"]},
   {title:"NIGHTCLUBBING Archive / GoNightclubbing",url:"https://www.gonightclubbing.com",scene:"New York City",years:"1975\u20131981",inst:"NYU Fales Library",description:"82 bands videotaped during 112 performances, 27 on-camera interviews, and thousands of photographs from CBGB\u2019s, Mudd Club, Danceteria, and other venues. Created by Pat Ivers and Emily Armstrong.",cats:["physical","music","oral-history"]},
-  {title:"NO ACEPTO: Spanish Hardcore Punk (Internet Archive)",url:"https://archive.org/details/no-acepto-1980-1990-10-anos-de-hardcore-punk-ira-y-caos",scene:"Spain",years:"1980\u20131990",description:"Documentary/compilation covering ten years of Spanish hardcore punk.",cats:["music"]},
+  {title:"NO ACEPTO: Spanish Hardcore Punk",url:"https://archive.org/details/no-acepto-1980-1990-10-anos-de-hardcore-punk-ira-y-caos",scene:"Spain",years:"1980\u20131990",inst:"Internet Archive",description:"Documentary/compilation covering ten years of Spanish hardcore punk.",cats:["music"]},
   {title:"Northwest Music Archives",url:"https://nwmusicarchives.com/",scene:"Pacific Northwest",description:"Data about regional music history with emphasis on notable local musicians and labels.",cats:["scene"]},
-  {title:"NYU Fales Library \u2014 Riot Grrrl Collection",url:"https://guides.nyu.edu/riot-grrrl",scene:"Riot Grrrl movement",years:"1989\u20131996",inst:"NYU Fales Library",description:"Documents the evolution of the Riot Grrrl movement. Founded when Kathleen Hanna donated her collection. Includes materials relating to feminist and queer-positive punk rock and politics.",cats:["physical","zines"]},
+  {title:"Riot Grrrl Collection",url:"https://guides.nyu.edu/riot-grrrl",scene:"Riot Grrrl movement",years:"1989\u20131996",inst:"NYU Fales Library",description:"Documents the evolution of the Riot Grrrl movement. Founded when Kathleen Hanna donated her collection. Includes materials relating to feminist and queer-positive punk rock and politics.",cats:["physical","zines"]},
   {title:"Old Punk Flyers",url:"https://oldpunkflyers.tumblr.com/",scene:"International",description:"Tumblr-based collection of vintage punk show flyers.",cats:["flyers"]},
-  {title:"Online Archive of California \u2014 Riot Grrrl Zines",url:"https://oac.cdlib.org/findaid/ark:/13030/c88g8tq6",scene:"Riot Grrrl movement",years:"1980\u20132024",inst:"Online Archive of California",description:"Hand-made zines spanning three distinct eras: Proto-Riot Grrrl, Riot-Grrrl, and Post-Riot Grrrl.",cats:["physical","zines"]},
+  {title:"Riot Grrrl Zines",url:"https://oac.cdlib.org/findaid/ark:/13030/c88g8tq6",scene:"Riot Grrrl movement",years:"1980\u20132024",inst:"Online Archive of California",description:"Hand-made zines spanning three distinct eras: Proto-Riot Grrrl, Riot-Grrrl, and Post-Riot Grrrl.",cats:["physical","zines"]},
   {title:"Papercut Zine Library",url:"https://www.papercutzinelibrary.com/",scene:"Cambridge, Massachusetts",description:"Free, volunteer-run library with 16,000+ zines. Maintains a virtual library of digital zines online.",cats:["physical","zines"]},
   {title:"Polish Punk Archive",url:"https://polishpunkarchive.pl/",scene:"Poland",description:"Digital resource dedicated to documenting Polish punk culture and history.",cats:["scene"]},
-  {title:"Profane Existence (Internet Archive)",url:"https://archive.org/details/profane_existence_1",scene:"Minneapolis, Minnesota",years:"1989\u20132007",description:"Issues of the Minneapolis-based anarcho-punk zine covering crust punk, anarchism, and DIY culture.",cats:["zines"]},
+  {title:"Profane Existence",url:"https://archive.org/details/profane_existence_1",scene:"Minneapolis, Minnesota",years:"1989\u20132007",inst:"Internet Archive",description:"Issues of the Minneapolis-based anarcho-punk zine covering crust punk, anarchism, and DIY culture.",cats:["zines"]},
   {title:"Punk77",url:"https://punk77.co.uk/",scene:"United Kingdom",years:"mid-1970s onward",description:"Downloadable/readable punk fanzines, historical documentation, and extensive resources on UK punk bands and culture.",cats:["scene","zines"]},
   {title:"Punk Archive NYC",url:"https://punkarchivenyc.org/",scene:"New York City",description:"Dedicated to preserving New York\u2019s punk culture and other music from the underground.",cats:["scene"]},
   {title:"Punk Flyer (Punkabilia)",url:"https://www.punkflyer.com/",scene:"International",description:"Collection of rare original punk flyers, posters, and Seditionaries materials.",cats:["flyers"]},
   {title:"Punk House Oakland",url:"https://www.instagram.com/punkhouseoakland/",scene:"East Bay / Oakland, California",years:"late 1990s\u2013early 2000s",description:"Photo archive of East Bay punk houses documenting backyard and basement shows, daily life, and community. Features members of Green Day, AFI, Pinhead Gunpowder, and many others. Created by Elizabeth Whitney.",cats:["scene"]},
   {title:"Punk in the East",url:"https://punkintheeast.co.uk/",scene:"Norwich / East Anglia, United Kingdom",description:"Digital collection of punk photographs, gig tickets, posters, clothing, and ephemera. One of the largest digital UK punk archives.",cats:["scene","flyers"]},
-  {title:"Punk On Wave (POW) Magazine (Internet Archive)",url:"https://archive.org/details/punkonwavepowmagazine1",scene:"Japan",description:"Digitized issues of the Japanese punk fanzine Punk On Wave.",cats:["zines"]},
-  {title:"Punk Planet Archive (Internet Archive)",url:"https://archive.org/details/punkplanet",years:"1994\u20132007",description:"Over 56 GB of PDFs from Punk Planet magazine, the influential Chicago-based punk culture publication.",cats:["zines"]},
-  {title:"Punk Rock Preservation Project (Internet Archive)",url:"https://archive.org/search?query=creator%3A%22The+Punk+Rock+Preservation+Project%22",scene:"Canada",description:"Dedicated to preserving hard-to-find obscure independent punk, hardcore, metal, and ska releases \u2014 demos, compilations, and full albums.",cats:["music"]},
-  {title:"The Punk Rock Museum",url:"https://www.thepunkrockmuseum.com/",scene:"Las Vegas, Nevada",inst:"The Punk Rock Museum",description:"12,000 sq. ft. museum founded by Fat Mike (NOFX) in 2023. Over 1,000 artifacts including flyers, artwork, clothing, and instruments.",cats:["scene","flyers"]},
+  {title:"Punk On Wave (POW) Magazine",url:"https://archive.org/details/punkonwavepowmagazine1",scene:"Japan",inst:"Internet Archive",description:"Digitized issues of the Japanese punk fanzine Punk On Wave.",cats:["zines"]},
+  {title:"Punk Planet Archive",url:"https://archive.org/details/punkplanet",years:"1994\u20132007",inst:"Internet Archive",description:"Over 56 GB of PDFs from Punk Planet magazine, the influential Chicago-based punk culture publication.",cats:["zines"]},
+  {title:"Punk Rock Preservation Project",url:"https://archive.org/search?query=creator%3A%22The+Punk+Rock+Preservation+Project%22",scene:"Canada",inst:"Internet Archive",description:"Dedicated to preserving hard-to-find obscure independent punk, hardcore, metal, and ska releases \u2014 demos, compilations, and full albums.",cats:["music"]},
+  {title:"The Punk Rock Museum",url:"https://www.thepunkrockmuseum.com/",scene:"Las Vegas, Nevada",description:"12,000 sq. ft. museum founded by Fat Mike (NOFX) in 2023. Over 1,000 artifacts including flyers, artwork, clothing, and instruments.",cats:["scene","flyers"]},
   {title:"Punks On Paper \u2014 NC Punk and Hardcore Flyer Archive",url:"https://www.headfirstrecords.com/NCshows/",scene:"North Carolina",years:"late 1970s\u2013present",description:"Digital archive of NC punk and hardcore show flyers and posters. Over 5,000 shows listed.",cats:["flyers"]},
   {title:"Queer Zine Archive Project (QZAP)",url:"https://www.qzap.org/",scene:"International",description:"Over 2,500 zines collected, nearly 600 digitized and freely accessible online. Launched in 2003 to preserve queer zines including queercore punk.",cats:["zines"]},
-  {title:"Razorcake (Internet Archive)",url:"https://archive.org/details/razorcake",years:"2001\u20132018",description:"Issues of Razorcake, the longest-running active DIY punk zine in the US, in scanned and PDF formats.",cats:["zines"]},
-  {title:"RILM Archive of Popular Music Magazines",url:"https://www.rilm.org/rapmm/",inst:"RILM",description:"Scholarly archive of popular music magazines including punk-related publications.",cats:["zines"]},
+  {title:"Razorcake",url:"https://archive.org/details/razorcake",years:"2001\u20132018",inst:"Internet Archive",description:"Issues of Razorcake, the longest-running active DIY punk zine in the US, in scanned and PDF formats.",cats:["zines"]},
+  {title:"Archive of Popular Music Magazines",url:"https://www.rilm.org/rapmm/",inst:"RILM",description:"Scholarly archive of popular music magazines including punk-related publications.",cats:["zines"]},
   {title:"Salford Zine Library",url:"https://salfordzinelibrary.co.uk/",scene:"Salford / Manchester, United Kingdom",description:"Archive of self-published materials with online catalogue. Each zine entry includes descriptions and photos.",cats:["zines"]},
-  {title:"San Diego Punk Flyers (Internet Archive)",url:"https://archive.org/details/BOCbitch",scene:"San Diego, California",years:"mid-2000s",description:"Handmade punk flyers featuring bands like Gluttony and Basura.",cats:["flyers"]},
-  {title:"San Francisco Public Library \u2014 SF Punk Archive",url:"https://oac.cdlib.org/findaid/ark:/13030/c8sx6mxs/",scene:"San Francisco Bay Area",years:"1973\u20132015",inst:"San Francisco Public Library",description:"Fliers, posters, zines, photographs, and ephemera. Features Tuxedomoon, the Avengers, the Sleepers, Frightwig, and the Penelope Houston / Avengers Collection.",cats:["physical","zines","flyers"]},
-  {title:"Scruffs Vintage Punk Rock Flyers (Internet Archive)",url:"https://archive.org/details/scruffsvintagepunkrockflyers",description:"Collection of 250 vintage punk rock flyers found at an estate sale.",cats:["flyers"]},
-  {title:"SFPL Little Magazine/Zine Collection",url:"https://sfpl.org/locations/main-library/book-arts-special-collections/little-magazine-collection",scene:"San Francisco Bay Area",inst:"San Francisco Public Library",description:"Documents the underground/alternative press of the SF Bay Area. More than 4,000 items including punk zines and little magazines.",cats:["physical","zines"]},
-  {title:"Slash Magazine Complete Run (Internet Archive)",url:"https://archive.org/details/slash_circulation_zero",scene:"Los Angeles, California",years:"1977\u20131980",description:"All 29 issues of Slash magazine, one of the essential documents of the LA punk scene.",cats:["zines"]},
+  {title:"San Diego Punk Flyers",url:"https://archive.org/details/BOCbitch",scene:"San Diego, California",years:"mid-2000s",inst:"Internet Archive",description:"Handmade punk flyers featuring bands like Gluttony and Basura.",cats:["flyers"]},
+  {title:"SF Punk Archive",url:"https://oac.cdlib.org/findaid/ark:/13030/c8sx6mxs/",scene:"San Francisco Bay Area",years:"1973\u20132015",inst:"San Francisco Public Library",description:"Fliers, posters, zines, photographs, and ephemera. Features Tuxedomoon, the Avengers, the Sleepers, Frightwig, and the Penelope Houston / Avengers Collection.",cats:["physical","zines","flyers"]},
+  {title:"Scruffs Vintage Punk Rock Flyers",url:"https://archive.org/details/scruffsvintagepunkrockflyers",inst:"Internet Archive",description:"Collection of 250 vintage punk rock flyers found at an estate sale.",cats:["flyers"]},
+  {title:"Little Magazine/Zine Collection",url:"https://sfpl.org/locations/main-library/book-arts-special-collections/little-magazine-collection",scene:"San Francisco Bay Area",inst:"San Francisco Public Library",description:"Documents the underground/alternative press of the SF Bay Area. More than 4,000 items including punk zines and little magazines.",cats:["physical","zines"]},
+  {title:"Slash Magazine Complete Run",url:"https://archive.org/details/slash_circulation_zero",scene:"Los Angeles, California",years:"1977\u20131980",inst:"Internet Archive",description:"All 29 issues of Slash magazine, one of the essential documents of the LA punk scene.",cats:["zines"]},
   {title:"Southern Punk Archive",url:"https://southdocs.org/project/southern-punk-archive/",scene:"Southern United States",inst:"University of Mississippi",description:"Growing physical and digital repository of videos, photos, fliers, music, films, and oral histories. Special interest in DIY spaces, self-published works, and rural punks. Established 2021.",cats:["scene","flyers","music","oral-history"]},
-  {title:"Spirit of Revolt Archive \u2014 Glasgow (Internet Archive)",url:"https://archive.org/details/PunkFanzineTheDestructors",scene:"Glasgow, Scotland",description:"Punk fanzines, anarchist publications, and political magazines from the John Frew Collection and other Glasgow holdings.",cats:["zines"]},
-  {title:"UCLA Library Special Collections Punk Archive",url:"https://www.library.ucla.edu/collections/library-special-collections-punk-archive/",scene:"Los Angeles / Hollywood, California",inst:"UCLA",description:"Primary source materials from punk musicians, promoters, photographers, and community members including papers, photographs, recordings, oral histories, zines, and ephemera.",cats:["scene","zines","flyers","oral-history","music"]},
+  {title:"Spirit of Revolt Archive",url:"https://archive.org/details/PunkFanzineTheDestructors",scene:"Glasgow, Scotland",inst:"Internet Archive",description:"Punk fanzines, anarchist publications, and political magazines from the John Frew Collection and other Glasgow holdings.",cats:["zines"]},
+  {title:"LA Punk Archive",url:"https://www.library.ucla.edu/collections/library-special-collections-punk-archive/",scene:"Los Angeles / Hollywood, California",inst:"UCLA",description:"Primary source materials from punk musicians, promoters, photographers, and community members including papers, photographs, recordings, oral histories, zines, and ephemera.",cats:["scene","zines","flyers","oral-history","music"]},
   {title:"UKHC Archive",url:"https://www.ukhcarchive.co.uk/",scene:"United Kingdom",description:"Digital archive of hardcore and punk history in the UK.",cats:["scene"]},
-  {title:"UMD DC Punk Collections",url:"https://exhibitions.lib.umd.edu/dc-punk/the-collections",scene:"Washington, D.C.",years:"1976 onward",inst:"University of Maryland",description:"Major digitized holdings including the Ian MacKaye Fanzine Collection, D.C. Punk and Indie Fanzine Collection (21 sub-collections), Sharon Cheslow Punk Flyers, and Kevin Salk D.C. Punk Photography. Over fifty linear feet of fanzines, flyers, posters, recordings, photographs, and ephemera.",cats:["scene","zines","flyers"]},
-  {title:"University of Connecticut \u2014 Joe Snow Punk Rock Collection",url:"https://archivessearch.lib.uconn.edu/repositories/2/resources/1094",scene:"Connecticut",years:"late 1970s\u20132000s",inst:"University of Connecticut",description:"Zines, stickers, photographs, show flyers, set lists, and audio recordings on cassette, vinyl, and compact disc.",cats:["physical","zines","flyers","music"]},
+  {title:"DC Punk Collections",url:"https://exhibitions.lib.umd.edu/dc-punk/the-collections",scene:"Washington, D.C.",years:"1976 onward",inst:"University of Maryland",description:"Major digitized holdings including the Ian MacKaye Fanzine Collection, D.C. Punk and Indie Fanzine Collection (21 sub-collections), Sharon Cheslow Punk Flyers, and Kevin Salk D.C. Punk Photography. Over fifty linear feet of fanzines, flyers, posters, recordings, photographs, and ephemera.",cats:["scene","zines","flyers"]},
+  {title:"Joe Snow Punk Rock Collection",url:"https://archivessearch.lib.uconn.edu/repositories/2/resources/1094",scene:"Connecticut",years:"late 1970s\u20132000s",inst:"University of Connecticut",description:"Zines, stickers, photographs, show flyers, set lists, and audio recordings on cassette, vinyl, and compact disc.",cats:["physical","zines","flyers","music"]},
   {title:"Vancouver Punk Rock Collection",url:"https://digital.lib.sfu.ca/vanpunk-1-collection/vancouver-punk-rock-collection",scene:"Vancouver, British Columbia",inst:"Simon Fraser University",description:"Approximately 600 posters, 100 CDs/LPs/45s, photographs, periodicals, and ephemera. About 800 of 1,200 posters digitized and searchable online. Includes genealogy of Vancouver punk bands.",cats:["physical","flyers","music"]},
-  {title:"Victoria and Albert Museum \u2014 Punk Collection",url:"https://collections.vam.ac.uk/search/?q=punk",scene:"United Kingdom",inst:"Victoria and Albert Museum",description:"Searchable online database includes punk-related fashion items and Vivienne Westwood\u2019s punk-era designs.",cats:["scene"]},
-  {title:"Vintage Detroit Punk Rock Flyers (Internet Archive)",url:"https://archive.org/details/Patrick_Scruff_Shaw_Punk_Rock_Flyers",scene:"Detroit, Michigan",description:"Hundreds of punk rock flyers from Detroit compiled by Patrick \u2018Scruff\u2019 Shaw.",cats:["flyers"]},
+  {title:"Punk Fashion and Design Collection",url:"https://collections.vam.ac.uk/search/?q=punk",scene:"United Kingdom",inst:"Victoria and Albert Museum",description:"Searchable online database includes punk-related fashion items and Vivienne Westwood\u2019s punk-era designs.",cats:["scene"]},
+  {title:"Vintage Detroit Punk Rock Flyers",url:"https://archive.org/details/Patrick_Scruff_Shaw_Punk_Rock_Flyers",scene:"Detroit, Michigan",inst:"Internet Archive",description:"Hundreds of punk rock flyers from Detroit compiled by Patrick \u2018Scruff\u2019 Shaw.",cats:["flyers"]},
   {title:"Women Who Rock Oral History Archive",url:"https://content.lib.washington.edu/wwrweb/",scene:"Americas",inst:"University of Washington",description:"60+ oral histories of musicians, producers, journalists, and scholars with a focus on women\u2019s participation in punk and other music communities.",cats:["oral-history"]},
-  {title:"Yale Beinecke Library British Punk Archive",url:"https://archives.yale.edu/repositories/11/resources/11816",scene:"United Kingdom",inst:"Yale University",description:"Nearly 1,900 punk and anarchist fanzines plus correspondence, writings, artwork, photographs, clothing, stencils, posters, and audiovisual media. Includes dedicated Crass materials.",cats:["physical","zines","flyers"]}
+  {title:"British Punk Archive",url:"https://archives.yale.edu/repositories/11/resources/11816",scene:"United Kingdom",inst:"Yale University",description:"Nearly 1,900 punk and anarchist fanzines plus correspondence, writings, artwork, photographs, clothing, stencils, posters, and audiovisual media. Includes dedicated Crass materials.",cats:["physical","zines","flyers"]}
 ];
 
 /* ---- CATEGORIES ---- */

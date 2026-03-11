@@ -163,11 +163,21 @@
       border: 1px solid var(--border-light);
       border-radius: 6px;
       padding: 0.35rem 0;
-      margin-top: 0.25rem;
+      padding-top: 0.6rem;
+      margin-top: 0;
       list-style: none;
       min-width: 130px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       z-index: 200;
+    }
+
+    nav .nav-dropdown::before {
+      content: "";
+      position: absolute;
+      top: -0.5rem;
+      left: 0;
+      right: 0;
+      height: 0.5rem;
     }
 
     nav .nav-more:hover .nav-dropdown {
@@ -792,7 +802,7 @@
     <h1>The Punk Archiving Toolkit</h1>
     <p class="subtitle">An open framework for building subcultural and community digital archives</p>
     <p class="description">
-      A collection of guides, templates, and tools for anyone who wants to build a digital archive of punk zines, flyers, and ephemera&mdash;or any other subcultural or community materials. Born from the experience of building the <a href="https://eastbaypunkda.com" target="_blank" rel="noopener">East Bay Punk Digital Archive</a>, this toolkit is designed to lower the barrier for DIY archivists, librarians, and community members who want to preserve and share cultural materials without starting from scratch.
+      Guides, templates, and tools for building a digital archive of punk zines, flyers, and ephemera. Born from the experience of building the <a href="https://eastbaypunkda.com" target="_blank" rel="noopener">East Bay Punk Digital Archive</a>, this toolkit is designed to lower the barrier for DIY archivists, librarians, and community members who want to preserve and share subcultural materials without starting from scratch.
     </p>
   </header>
 

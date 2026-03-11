@@ -34,7 +34,7 @@ Each section is marked with an HTML comment (e.g. `<!-- PLAN YOUR ARCHIVE -->`).
 
 ## Nav Behavior
 
-- **Desktop**: 7 visible links + a "More +" hover dropdown containing Examples, Archives Directory, Go Further, Reading
+- **Desktop**: 7 visible links + a "More +" hover dropdown containing Examples, Archives Directory, Go Further, Reading. The dropdown uses a `::before` pseudo-element on `.nav-dropdown` as an invisible hover bridge so the menu doesn't disappear while moving the mouse from the label to the menu.
 - **Mobile (≤768px)**: CSS-only hamburger menu using a hidden checkbox toggle (`.nav-toggle`). The "More +" label is hidden; all links appear flat. A small script unchecks the toggle when a link is clicked.
 
 ## Design System
@@ -121,6 +121,8 @@ Each archive entry is a JS object in the `ARCHIVES` array with these fields:
 
 Fields `scene`, `years`, and `inst` are displayed on cards as a metadata line separated by middots (·). Only fields with values are shown.
 
+**Title/institution convention**: Don't duplicate the institution name in the title if it's already in `inst`. E.g., use `title:"Riot Grrrl Collection"` + `inst:"Cornell University"`, not `title:"Cornell — Riot Grrrl Collection"`. Exception: when the institution name *is* the archive name (e.g., "Barnard College Zine Library").
+
 ### Categories
 
 Six content-based categories, each mapped to an existing tag class:
@@ -139,6 +141,10 @@ Entries can have multiple categories (`cats` is an array). Filter buttons use OR
 ### Card Layout
 
 Title (linked) + tags → metadata line (scene · years · institution) → description → visit link. Cards render via `createCard()` using `document.createElement` (no innerHTML). Responsive grid: 3 columns → 2 at 960px → 1 at 600px.
+
+### Editing Archive Data
+
+The `ARCHIVES` array is large (~83 entries). For bulk edits, write new data to a temp file and use Python string slicing to replace the array in-place (not `re.sub` — the data contains `\u` escapes that break regex replacement templates).
 
 ## Hosting
 
