@@ -10,7 +10,7 @@ The Punk Archiving Toolkit is a single-page static website that curates guides, 
 
 **`index.html`** — The main toolkit page. Single HTML file with all CSS inline in a `<style>` block and a small `<script>` at the bottom (closes the mobile nav on link click). No build step, no package manager, no external dependencies beyond Google Fonts.
 
-**`archives.html`** — Archives Directory. A searchable, filterable catalog of 83 punk archives worldwide. Same architecture: single HTML file, all CSS inline, all data embedded as a JS array. Linked from the toolkit nav ("More +" dropdown) and the Examples section callout.
+**`archives.html`** — Archives Directory. A searchable, filterable catalog of 100 punk archives worldwide. Same architecture: single HTML file, all CSS inline, all data embedded as a JS array. Linked from the toolkit nav ("More +" dropdown) and the Examples section callout.
 
 Supporting files (reference material, not served on the site):
 - `PSN 2026 Paper.docx` — Source paper describing EBP-DA methodology
@@ -35,7 +35,7 @@ Each section is marked with an HTML comment (e.g. `<!-- PLAN YOUR ARCHIVE -->`).
 ## Nav Behavior
 
 - **Desktop**: 7 visible links + a "More +" hover dropdown containing Examples, Archives Directory, Go Further, Reading. The dropdown uses a `::before` pseudo-element on `.nav-dropdown` as an invisible hover bridge so the menu doesn't disappear while moving the mouse from the label to the menu.
-- **Mobile (≤768px)**: CSS-only hamburger menu using a hidden checkbox toggle (`.nav-toggle`). The "More +" label is hidden; all links appear flat. A small script unchecks the toggle when a link is clicked.
+- **Mobile (≤768px)**: CSS-only hamburger menu using a hidden checkbox toggle (`.nav-toggle`). The "More +" label is hidden; dropdown items appear flat via `display: block; position: static` (not `display: contents` — that has Safari click-handling bugs). The `::before` hover bridge is hidden at mobile. A small script unchecks the toggle when a link is clicked.
 
 ## Design System
 
@@ -144,7 +144,7 @@ Title (linked) + tags → metadata line (scene · years · institution) → desc
 
 ### Editing Archive Data
 
-The `ARCHIVES` array is large (~83 entries). For bulk edits, write new data to a temp file and use Python string slicing to replace the array in-place (not `re.sub` — the data contains `\u` escapes that break regex replacement templates).
+The `ARCHIVES` array is large (~100 entries, sorted alphabetically by title). For bulk edits, write new data to a temp file and use Python string slicing to replace the array in-place (not `re.sub` — the data contains `\u` escapes that break regex replacement templates). After adding or removing entries, re-sort and update counts in: meta descriptions, subtitle, results counter (all in `archives.html`), and the Examples callout in `index.html`.
 
 ## Hosting
 
