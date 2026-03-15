@@ -10,7 +10,7 @@ The Punk Archiving Toolkit is a single-page static website that curates guides, 
 
 **`index.html`** — The main toolkit page. Single HTML file with all CSS inline in a `<style>` block and a small `<script>` at the bottom (closes the mobile nav on link click). No build step, no package manager, no external dependencies beyond Google Fonts.
 
-**`archives.html`** — Archives Directory. A searchable, filterable catalog of 100 punk archives worldwide. Same architecture: single HTML file, all CSS inline, all data embedded as a JS array. Linked from the toolkit nav ("More +" dropdown) and the Examples section callout.
+**`archives.html`** — Archives Directory. A searchable, filterable catalog of 114 punk archives worldwide. Same architecture: single HTML file, all CSS inline, all data embedded as a JS array. Linked from the toolkit nav ("More +" dropdown) and the Examples section callout.
 
 Supporting files (reference material, not served on the site):
 - `PSN 2026 Paper.docx` — Source paper describing EBP-DA methodology
