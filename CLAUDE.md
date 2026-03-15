@@ -144,7 +144,7 @@ Title (linked) + tags → metadata line (scene · years · institution) → desc
 
 ### Editing Archive Data
 
-The `ARCHIVES` array is large (~100 entries, sorted alphabetically by title). For bulk edits, write new data to a temp file and use Python string slicing to replace the array in-place (not `re.sub` — the data contains `\u` escapes that break regex replacement templates). After adding or removing entries, re-sort and update counts in: meta descriptions, subtitle, results counter (all in `archives.html`), and the Examples callout in `index.html`.
+The `ARCHIVES` array is large (~114 entries, sorted alphabetically by title). For bulk edits, write new data to a temp file and use Python string slicing to replace the array in-place (not `re.sub` — the data contains `\u` escapes that break regex replacement templates). After adding or removing entries, re-sort and update counts in: meta descriptions, subtitle, results counter (all in `archives.html`), and the Examples callout in `index.html`.
 
 ## Hosting
 
