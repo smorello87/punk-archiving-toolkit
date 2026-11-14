@@ -2,3 +2,7 @@
 Untitled-1.md
 .claude/
 .playwright-mcp/
+
+# Private drafts
+*.docx
+!Punk_Digital_Archive_Permission_Form.docx
