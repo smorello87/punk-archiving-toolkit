@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-default-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,537 +11,106 @@
   <meta property="og:url" content="https://eastbaypunkda.com/toolkit/archives.html">
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📁</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --bg: #faf8f5;
-      --bg-alt: #f3eeea;
-      --text: #1c1917;
-      --text-secondary: #57534e;
-      --accent: #b45309;
-      --accent-hover: #92400e;
-      --border: #d6d3d1;
-      --border-light: #e7e5e4;
-
-      --tag-template: #92400e;
-      --tag-template-bg: #fef3c7;
-      --tag-tutorial: #1d4ed8;
-      --tag-tutorial-bg: #dbeafe;
-      --tag-guide: #15803d;
-      --tag-guide-bg: #dcfce7;
-      --tag-toolkit: #7c3aed;
-      --tag-toolkit-bg: #ede9fe;
-      --tag-schema: #0f766e;
-      --tag-schema-bg: #ccfbf1;
-      --tag-interview: #be123c;
-      --tag-interview-bg: #ffe4e6;
-      --tag-code: #334155;
-      --tag-code-bg: #e2e8f0;
-      --tag-zine: #a21caf;
-      --tag-zine-bg: #fae8ff;
-      --tag-tool: #0369a1;
-      --tag-tool-bg: #e0f2fe;
-      --tag-archive: #8b4513;
-      --tag-archive-bg: #fde8d0;
-
-      --font-display: 'Newsreader', Georgia, serif;
-      --font-body: 'Work Sans', system-ui, sans-serif;
-
-      --max-w: 44rem;
-      --grid-max: 72rem;
-      --card-gap: 1.25rem;
-
-      --space-xs: 0.5rem;
-      --space-sm: 0.75rem;
-      --space-md: 1.5rem;
-      --space-lg: 3rem;
-      --space-xl: 5rem;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    body {
-      font-family: var(--font-body);
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--text);
-      background-color: var(--bg);
-    }
-
-    /* ---- SKIP LINK ---- */
-
-    .skip-link {
-      position: absolute;
-      top: -100%;
-      left: var(--space-md);
-      background: var(--accent);
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 0 0 6px 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      z-index: 999;
-      text-decoration: none;
-    }
-
-    .skip-link:focus {
-      top: 0;
-    }
-
-    /* ---- NAV ---- */
-
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid var(--border-light);
-      padding: var(--space-sm) var(--space-md);
-      backdrop-filter: blur(8px);
-      background: rgba(250, 248, 245, 0.92);
-    }
-
-    nav .nav-inner {
-      max-width: var(--grid-max);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    nav .nav-title {
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-size: 0.95rem;
-      white-space: nowrap;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.01em;
-    }
-
-    nav .nav-title:hover {
-      color: var(--accent);
-    }
-
-    nav .page-label {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      letter-spacing: 0.02em;
-    }
-
-    /* ---- HERO ---- */
-
-    .hero {
-      padding: var(--space-lg) var(--space-md) var(--space-md);
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-    }
-
-    .hero .subtitle {
-      font-size: 1.05rem;
-      color: var(--text-secondary);
-      max-width: 36rem;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    /* ---- SEARCH BAR ---- */
-
-    .search-bar {
-      position: sticky;
-      top: 49px;
-      z-index: 90;
-      background: rgba(250, 248, 245, 0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border-light);
-      padding: var(--space-sm) var(--space-md);
-    }
-
-    .search-inner {
-      max-width: var(--grid-max);
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 0.6rem 1rem;
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      color: var(--text);
-      background: #fff;
-      border: 1.5px solid var(--border);
-      border-radius: 6px;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .search-input::placeholder {
-      color: #a8a29e;
-    }
-
-    .search-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.1);
-    }
-
-    .filter-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    .filter-btn {
-      font-family: var(--font-body);
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.6rem;
-      border-radius: 3px;
-      border: 1.5px solid transparent;
-      cursor: pointer;
-      transition: all 0.15s;
-      background: transparent;
-    }
-
-    .filter-btn[data-active="false"] {
-      opacity: 0.7;
-    }
-
-    .filter-btn[data-active="false"]:hover {
-      opacity: 1;
-    }
-
-    .filter-btn[data-active="true"] {
-      opacity: 1;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-    }
-
-    /* Filter button colors */
-    .filter-btn[data-cat="zines"]        { color: var(--tag-zine); border-color: var(--tag-zine); }
-    .filter-btn[data-cat="zines"][data-active="true"] { background: var(--tag-zine-bg); }
-    .filter-btn[data-cat="flyers"]       { color: var(--tag-template); border-color: var(--tag-template); }
-    .filter-btn[data-cat="flyers"][data-active="true"] { background: var(--tag-template-bg); }
-    .filter-btn[data-cat="music"]        { color: var(--tag-tutorial); border-color: var(--tag-tutorial); }
-    .filter-btn[data-cat="music"][data-active="true"] { background: var(--tag-tutorial-bg); }
-    .filter-btn[data-cat="scene"]        { color: var(--tag-guide); border-color: var(--tag-guide); }
-    .filter-btn[data-cat="scene"][data-active="true"] { background: var(--tag-guide-bg); }
-    .filter-btn[data-cat="oral-history"] { color: var(--tag-interview); border-color: var(--tag-interview); }
-    .filter-btn[data-cat="oral-history"][data-active="true"] { background: var(--tag-interview-bg); }
-    .filter-btn[data-cat="physical"]     { color: var(--tag-archive); border-color: var(--tag-archive); }
-    .filter-btn[data-cat="physical"][data-active="true"] { background: var(--tag-archive-bg); }
-
-    /* ---- RESULTS ---- */
-
-    .results-bar {
-      max-width: var(--grid-max);
-      margin: 0 auto;
-      padding: var(--space-sm) var(--space-md) 0;
-    }
-
-    .results-count {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    /* ---- CARD GRID ---- */
-
-    main {
-      padding: 0 var(--space-md) var(--space-xl);
-    }
-
-    .card-grid {
-      max-width: var(--grid-max);
-      margin: var(--space-sm) auto 0;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--card-gap);
-    }
-
-    @media (max-width: 960px) {
-      .card-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 600px) {
-      .card-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ---- CARD ---- */
-
-    .card {
-      background: #fff;
-      border: 1px solid var(--border-light);
-      border-radius: 6px;
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-      transform: translateY(-2px);
-    }
-
-    .card-header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.35rem 0.5rem;
-    }
-
-    .card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-    }
-
-    .card-title {
-      font-family: var(--font-display);
-      font-size: 1.05rem;
-      font-weight: 600;
-      line-height: 1.3;
-      letter-spacing: -0.01em;
-    }
-
-    .card-title a {
-      color: var(--text);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    .card-title a:hover {
-      color: var(--accent);
-    }
-
-    .card-meta {
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      line-height: 1.4;
-    }
-    .meta-sep {
-      margin: 0 0.4rem;
-      opacity: 0.4;
-    }
-
-    .card-desc {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      line-height: 1.55;
-      flex-grow: 1;
-    }
-
-    .card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 0.25rem;
-    }
-
-    /* ---- TAGS ---- */
-
-    .tag {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      padding: 0.15rem 0.45rem;
-      border-radius: 3px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .tag-guide       { color: var(--tag-guide); background: var(--tag-guide-bg); }
-    .tag-template    { color: var(--tag-template); background: var(--tag-template-bg); }
-    .tag-toolkit     { color: var(--tag-toolkit); background: var(--tag-toolkit-bg); }
-    .tag-zine        { color: var(--tag-zine); background: var(--tag-zine-bg); }
-    .tag-code        { color: var(--tag-code); background: var(--tag-code-bg); }
-    .tag-tutorial    { color: var(--tag-tutorial); background: var(--tag-tutorial-bg); }
-    .tag-interview   { color: var(--tag-interview); background: var(--tag-interview-bg); }
-    .tag-schema      { color: var(--tag-schema); background: var(--tag-schema-bg); }
-    .tag-tool        { color: var(--tag-tool); background: var(--tag-tool-bg); }
-    .tag-archive     { color: var(--tag-archive); background: var(--tag-archive-bg); }
-
-    .card-visit {
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--accent);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    .card-visit:hover {
-      color: var(--accent-hover);
-      text-decoration: underline;
-    }
-
-    /* ---- EMPTY STATE ---- */
-
-    .empty-state {
-      text-align: center;
-      padding: var(--space-lg) var(--space-md);
-      color: var(--text-secondary);
-      font-size: 1rem;
-      max-width: var(--grid-max);
-      margin: 0 auto;
-    }
-
-    /* ---- CALLOUT ---- */
-
-    .callout {
-      background: var(--bg-alt);
-      border-left: 3px solid var(--accent);
-      border-radius: 0 6px 6px 0;
-      padding: var(--space-md);
-      max-width: var(--grid-max);
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .callout-title {
-      font-family: var(--font-display);
-      font-size: 1.05rem;
-      font-weight: 600;
-      line-height: 1.35;
-      margin-bottom: 0.4rem;
-      color: var(--text);
-    }
-
-    .callout p {
-      font-size: 0.95rem;
-      line-height: 1.65;
-      color: var(--text-secondary);
-    }
-
-    .callout a {
-      color: var(--accent);
-      text-decoration-color: var(--border);
-      text-underline-offset: 3px;
-      transition: text-decoration-color 0.2s;
-    }
-
-    .callout a:hover {
-      text-decoration-color: var(--accent);
-    }
-
-    /* ---- FOOTER ---- */
-
-    footer {
-      border-top: 1px solid var(--border-light);
-      padding: var(--space-lg) var(--space-md);
-      text-align: center;
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      line-height: 1.8;
-    }
-
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* ---- FOCUS STATES ---- */
-
-    a:focus-visible,
-    .search-input:focus-visible,
-    .filter-btn:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    /* ---- PRINT ---- */
-
-    @media print {
-      nav, .search-bar, .filter-tags { display: none; }
-      .card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
-      .card-title a::after { content: " (" attr(href) ")"; font-size: 0.75rem; font-family: var(--font-body); font-weight: 400; }
-      .tag { border: 1px solid currentColor; }
-    }
-  </style>
+  <meta name="color-scheme" content="light dark">
+  <script>(function(d){var r=d.documentElement,t;try{t=localStorage.getItem("ebp-theme")}catch(e){}if(t!=="light"&&t!=="dark"){t=r.getAttribute("data-default-theme")==="dark"?"dark":"light"}r.setAttribute("data-theme",t);r.classList.add("ebp-js")})(document);</script>
+  <link rel="stylesheet" href="core/ebp-core.css">
+  <link rel="stylesheet" href="toolkit.css">
+  <script src="core/ebp-core.js" defer></script>
+  <script src="toolkit.js" defer></script>
 </head>
-<body>
+<body class="tk-directory-page">
 
-<a href="#directory" class="skip-link">Skip to directory</a>
+<a class="ebp-skip" href="#content">Skip to main content</a>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <a href="index.html" class="nav-title">The Punk Archiving Toolkit</a>
-    <span class="page-label">Archives Directory</span>
-  </div>
-</nav>
-
-<!-- HERO -->
-<header class="hero">
-  <h1>Digital Punk Archives Directory</h1>
-  <p class="subtitle">115 collections preserving punk history worldwide.</p>
-</header>
-
-<!-- SEARCH / FILTER BAR -->
-<div class="search-bar">
-  <div class="search-inner">
-    <input type="text" class="search-input" id="search" placeholder="Search by title, location, description&hellip;" aria-label="Search archives">
-    <div class="filter-tags" role="group" aria-label="Filter by type">
-      <button class="filter-btn" data-cat="zines" data-active="false">Zines</button>
-      <button class="filter-btn" data-cat="flyers" data-active="false">Flyers</button>
-      <button class="filter-btn" data-cat="music" data-active="false">Music</button>
-      <button class="filter-btn" data-cat="scene" data-active="false">Scene</button>
-      <button class="filter-btn" data-cat="oral-history" data-active="false">Oral History</button>
-      <button class="filter-btn" data-cat="physical" data-active="false">Physical</button>
+<header class="ebp-header">
+  <div class="ebp-header__bar">
+    <a class="ebp-brand" href="https://eastbaypunkda.com/">
+      <img class="ebp-brand__logo" src="core/img/logo.png" alt="" width="60" height="40">
+      <span class="ebp-brand__name">East Bay Punk <span>Digital Archive</span></span>
+    </a>
+    <button class="ebp-nav-toggle" type="button" aria-expanded="false" aria-controls="ebp-nav">Menu</button>
+    <nav id="ebp-nav" class="ebp-nav" aria-label="Main">
+      <ul class="ebp-nav__list">
+        <li><a href="https://eastbaypunkda.com/s/east-bay-punk-digital-archive/item-set">Collections</a></li>
+        <li><a href="https://eastbaypunkda.com/s/east-bay-punk-digital-archive/item">Items</a></li>
+        <li><a href="https://eastbaypunkda.com/vebp/">VEBP</a></li>
+        <li><a href="https://eastbaypunkda.com/toolkit/" aria-current="true">Toolkit</a></li>
+        <li><a href="https://eastbaypunkda.com/s/east-bay-punk-digital-archive/page/ethics">Ethics</a></li>
+        <li><a href="https://eastbaypunkda.com/s/east-bay-punk-digital-archive/page/about">About</a></li>
+      </ul>
+    </nav>
+    <div class="ebp-header__tools">
+      <button class="ebp-theme-toggle" type="button" aria-pressed="false">
+        <span class="ebp-theme-toggle__label">Dark mode</span>
+      </button>
     </div>
   </div>
-</div>
+  <nav class="ebp-subnav tk-subnav" aria-label="Punk Archiving Toolkit">
+    <a class="ebp-subnav__title" href="index.html">The Punk Archiving Toolkit</a>
+    <button class="tk-subnav__toggle" type="button" aria-expanded="false" aria-controls="tk-sections" hidden>Sections</button>
+    <ul class="ebp-subnav__list" id="tk-sections">
+      <li><a href="index.html#plan">Plan</a></li>
+      <li><a href="index.html#permission">Permission</a></li>
+      <li><a href="index.html#digitize">Digitize</a></li>
+      <li><a href="index.html#build">Build</a></li>
+      <li><a href="index.html#describe">Describe</a></li>
+      <li><a href="index.html#oral-history">Oral History</a></li>
+      <li><a href="index.html#examples">Examples</a></li>
+      <li><a href="archives.html" aria-current="page">Archives Directory</a></li>
+      <li><a href="index.html#further">Go Further</a></li>
+      <li><a href="index.html#reading">Reading</a></li>
+    </ul>
+  </nav>
+</header>
 
-<!-- RESULTS -->
-<main id="directory">
-  <div class="results-bar">
-    <p class="results-count">Showing <strong id="count">115</strong> of 115 archives</p>
+<main id="content" tabindex="-1">
+
+  <!-- HERO -->
+  <div class="tk-dir-hero">
+    <h1>Digital Punk Archives Directory</h1>
+    <p class="subtitle">115 collections preserving punk history worldwide.</p>
   </div>
-  <div class="card-grid" id="grid"></div>
-  <p class="empty-state" id="empty" hidden>No archives match your search. Try a different term or clear your filters.</p>
-  <div class="callout" style="margin-top:2.5rem;">
-    <p class="callout-title">Is your archive missing?</p>
+
+  <!-- SEARCH / FILTER -->
+  <form class="tk-dir-controls" role="search" aria-label="Search and filter archives" id="directory-controls">
+    <div class="ebp-field tk-dir-search">
+      <label for="search">Search archives</label>
+      <input type="search" class="search-input" id="search" placeholder="Search by title, location, description&hellip;" autocomplete="off" aria-describedby="results-count">
+    </div>
+    <fieldset class="tk-filters">
+      <legend>Filter by type</legend>
+      <div class="filter-tags">
+        <button type="button" class="filter-btn" data-cat="zines" aria-pressed="false">Zines</button>
+        <button type="button" class="filter-btn" data-cat="flyers" aria-pressed="false">Flyers</button>
+        <button type="button" class="filter-btn" data-cat="music" aria-pressed="false">Music</button>
+        <button type="button" class="filter-btn" data-cat="scene" aria-pressed="false">Scene</button>
+        <button type="button" class="filter-btn" data-cat="oral-history" aria-pressed="false">Oral History</button>
+        <button type="button" class="filter-btn" data-cat="physical" aria-pressed="false">Physical</button>
+      </div>
+    </fieldset>
+  </form>
+
+  <!-- RESULTS -->
+  <div class="tk-dir-results" id="directory">
+    <div class="results-bar">
+      <p class="results-count" id="results-count" role="status" aria-live="polite" aria-atomic="true">Showing <strong id="count">115</strong> of 115 archives</p>
+    </div>
+    <ul class="ebp-grid card-grid" id="grid"></ul>
+    <div class="empty-state" id="empty" hidden>
+      <p>No archives match your search. Try a different term or clear your filters.</p>
+      <button type="button" class="ebp-btn" id="clear-filters">Clear search and filters</button>
+    </div>
+  </div>
+
+  <div class="callout tk-dir-callout">
+    <h2 class="callout-title">Is your archive missing?</h2>
     <p>If you run a punk archive and it's not listed here, <a href="mailto:veritas44@gmail.com">get in touch</a> and we'll add it.</p>
   </div>
 </main>
 
-<!-- FOOTER -->
-<footer>
+<footer class="ebp-footer">
   <p><a href="index.html">&larr; Back to The Punk Archiving Toolkit</a></p>
-  <p style="margin-top:0.5rem;">A companion to the <a href="https://eastbaypunkda.com" target="_blank" rel="noopener">East Bay Punk Digital Archive</a>, created by Stefano Morello.</p>
+  <p>A companion to the <a href="https://eastbaypunkda.com" target="_blank" rel="noopener">East Bay Punk Digital Archive</a>, created by Stefano Morello.</p>
   <p>Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</p>
 </footer>
 
@@ -685,34 +254,60 @@ var searchInput = document.getElementById("search");
 var filterBtns = document.querySelectorAll(".filter-btn");
 var activeFilters = new Set();
 
+/* Same new-tab cue toolkit.js adds to static links: visible arrow + text for screen readers. */
+function newTabCue() {
+  var cue = document.createElement("span");
+  cue.className = "tk-newtab";
+  var icon = document.createElement("span");
+  icon.setAttribute("aria-hidden", "true");
+  icon.textContent = "\u2197";
+  var txt = document.createElement("span");
+  txt.className = "ebp-vh";
+  txt.textContent = " (opens in new tab)";
+  cue.appendChild(icon);
+  cue.appendChild(txt);
+  return cue;
+}
+
+/* One list item per archive. The title link is the card's only link (it is stretched over the
+   whole card in CSS), so each card has a single accessible name; "Visit" is a visual cue only. */
 function createCard(a) {
-  var card = document.createElement("div");
-  card.className = "card";
+  var item = document.createElement("li");
+  var card = document.createElement("article");
+  card.className = "ebp-card card";
+  item.appendChild(card);
+  var body = document.createElement("div");
+  body.className = "ebp-card__body";
+  card.appendChild(body);
 
   var header = document.createElement("div");
   header.className = "card-header";
 
   var title = document.createElement("h2");
-  title.className = "card-title";
+  title.className = "ebp-card__title card-title";
   var titleLink = document.createElement("a");
   titleLink.href = a.url;
   titleLink.target = "_blank";
   titleLink.rel = "noopener";
   titleLink.textContent = a.title;
+  titleLink.appendChild(newTabCue());
   title.appendChild(titleLink);
 
-  var tags = document.createElement("div");
-  tags.className = "card-tags";
+  var tags = document.createElement("ul");
+  tags.className = "ebp-tags card-tags";
+  tags.setAttribute("aria-label", "Categories");
   a.cats.forEach(function(c) {
+    var li = document.createElement("li");
     var tag = document.createElement("span");
-    tag.className = "tag " + CATEGORIES[c].tagClass;
+    tag.className = "ebp-tag tag " + CATEGORIES[c].tagClass;
     tag.textContent = CATEGORIES[c].label;
-    tags.appendChild(tag);
+    li.appendChild(tag);
+    tags.appendChild(li);
   });
 
   header.appendChild(title);
   header.appendChild(tags);
-  card.appendChild(header);
+  body.appendChild(header);
 
   var parts = [];
   if (a.scene) parts.push(a.scene);
@@ -720,7 +315,7 @@ function createCard(a) {
   if (a.inst) parts.push(a.inst);
   if (parts.length > 0) {
     var meta = document.createElement("p");
-    meta.className = "card-meta";
+    meta.className = "ebp-card__meta card-meta";
     parts.forEach(function(p, i) {
       if (i > 0) {
         var sep = document.createElement("span");
@@ -730,26 +325,24 @@ function createCard(a) {
       }
       meta.appendChild(document.createTextNode(p));
     });
-    card.appendChild(meta);
+    body.appendChild(meta);
   }
 
   var desc = document.createElement("p");
   desc.className = "card-desc";
   desc.textContent = a.description;
-  card.appendChild(desc);
+  body.appendChild(desc);
 
   var footer = document.createElement("div");
   footer.className = "card-footer";
-  var visit = document.createElement("a");
+  var visit = document.createElement("span");
   visit.className = "card-visit";
-  visit.href = a.url;
-  visit.target = "_blank";
-  visit.rel = "noopener";
+  visit.setAttribute("aria-hidden", "true");
   visit.textContent = "Visit \u2192";
   footer.appendChild(visit);
-  card.appendChild(footer);
+  body.appendChild(footer);
 
-  return card;
+  return item;
 }
 
 function render() {
@@ -773,10 +366,12 @@ function render() {
   while (grid.firstChild) grid.removeChild(grid.firstChild);
 
   if (filtered.length === 0) {
+    grid.hidden = true;
     emptyEl.hidden = false;
     return;
   }
 
+  grid.hidden = false;
   emptyEl.hidden = true;
   var fragment = document.createDocumentFragment();
   filtered.forEach(function(a) {
@@ -788,23 +383,33 @@ function render() {
 /* ---- EVENTS ---- */
 searchInput.addEventListener("input", render);
 
+/* Enter in the search box must not reload the page */
+document.getElementById("directory-controls").addEventListener("submit", function(e) { e.preventDefault(); });
+
 filterBtns.forEach(function(btn) {
   btn.addEventListener("click", function() {
     var cat = btn.getAttribute("data-cat");
     if (activeFilters.has(cat)) {
       activeFilters.delete(cat);
-      btn.setAttribute("data-active", "false");
+      btn.setAttribute("aria-pressed", "false");
     } else {
       activeFilters.add(cat);
-      btn.setAttribute("data-active", "true");
+      btn.setAttribute("aria-pressed", "true");
     }
     render();
   });
 });
 
+document.getElementById("clear-filters").addEventListener("click", function() {
+  searchInput.value = "";
+  activeFilters.clear();
+  filterBtns.forEach(function(btn) { btn.setAttribute("aria-pressed", "false"); });
+  render();
+  searchInput.focus();
+});
+
 /* Update total count display */
-document.querySelector(".results-count").firstChild.nodeValue = "";
-var rc = document.querySelector(".results-count");
+var rc = document.getElementById("results-count");
 rc.textContent = "";
 var t1 = document.createTextNode("Showing ");
 var strong = document.createElement("strong");

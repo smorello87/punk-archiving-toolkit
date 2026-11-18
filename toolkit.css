@@ -1,0 +1,596 @@
+/*!
+ * toolkit.css — Punk Archiving Toolkit (index.html + archives.html).
+ * Loaded after core/ebp-core.css. Uses only --ebp-* tokens, plus the --tk-tag-* tokens below
+ * (the ten resource-tag colours). Every tag pair is >= 4.5:1 text/background in both modes,
+ * and against --ebp-surface / --ebp-bg as well (checked by script, see the table at the end).
+ */
+
+/* ==========================================================================
+   1. Tag tokens. Selectors mirror the mode blocks in ebp-core.css.
+   ========================================================================== */
+/* @tokens light */
+:root,
+[data-theme="light"] {
+  --tk-tag-guide: #166534;      --tk-tag-guide-bg: #dcfce7;
+  --tk-tag-template: #9a3412;   --tk-tag-template-bg: #ffedd5;
+  --tk-tag-tutorial: #1e40af;   --tk-tag-tutorial-bg: #dbeafe;
+  --tk-tag-toolkit: #6d28d9;    --tk-tag-toolkit-bg: #ede9fe;
+  --tk-tag-schema: #115e59;     --tk-tag-schema-bg: #ccfbf1;
+  --tk-tag-interview: #9f1239;  --tk-tag-interview-bg: #ffe4e6;
+  --tk-tag-code: #334155;       --tk-tag-code-bg: #e2e8f0;
+  --tk-tag-zine: #86198f;       --tk-tag-zine-bg: #fae8ff;
+  --tk-tag-tool: #075985;       --tk-tag-tool-bg: #e0f2fe;
+  --tk-tag-archive: #7c2d12;    --tk-tag-archive-bg: #f6e5d3;
+}
+/* @end */
+
+/* @tokens dark */
+[data-theme="dark"] {
+  --tk-tag-guide: #86efac;      --tk-tag-guide-bg: #0f2a1a;
+  --tk-tag-template: #fdba74;   --tk-tag-template-bg: #2e1a0c;
+  --tk-tag-tutorial: #93c5fd;   --tk-tag-tutorial-bg: #13213d;
+  --tk-tag-toolkit: #c4b5fd;    --tk-tag-toolkit-bg: #231a3d;
+  --tk-tag-schema: #5eead4;     --tk-tag-schema-bg: #0c2a27;
+  --tk-tag-interview: #fda4af;  --tk-tag-interview-bg: #3a141d;
+  --tk-tag-code: #cbd5e1;       --tk-tag-code-bg: #1f2937;
+  --tk-tag-zine: #f0abfc;       --tk-tag-zine-bg: #34143a;
+  --tk-tag-tool: #7dd3fc;       --tk-tag-tool-bg: #0c2536;
+  --tk-tag-archive: #e7b98a;    --tk-tag-archive-bg: #2f2015;
+}
+/* @end */
+
+/* No data-theme yet (no JS) + OS dark: copy of the dark block. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --tk-tag-guide: #86efac;      --tk-tag-guide-bg: #0f2a1a;
+    --tk-tag-template: #fdba74;   --tk-tag-template-bg: #2e1a0c;
+    --tk-tag-tutorial: #93c5fd;   --tk-tag-tutorial-bg: #13213d;
+    --tk-tag-toolkit: #c4b5fd;    --tk-tag-toolkit-bg: #231a3d;
+    --tk-tag-schema: #5eead4;     --tk-tag-schema-bg: #0c2a27;
+    --tk-tag-interview: #fda4af;  --tk-tag-interview-bg: #3a141d;
+    --tk-tag-code: #cbd5e1;       --tk-tag-code-bg: #1f2937;
+    --tk-tag-zine: #f0abfc;       --tk-tag-zine-bg: #34143a;
+    --tk-tag-tool: #7dd3fc;       --tk-tag-tool-bg: #0c2536;
+    --tk-tag-archive: #e7b98a;    --tk-tag-archive-bg: #2f2015;
+  }
+}
+
+/* ==========================================================================
+   2. Page frame
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+/* The header is not sticky (reflow at 400% zoom), so a little breathing room is all anchors need. */
+[id] { scroll-margin-top: var(--ebp-s-5); }
+
+/* The calm 44rem reading column. */
+.tk-hero,
+.tk-section,
+.tk-principles,
+.tk-divider {
+  box-sizing: content-box;
+  max-width: 44rem;
+  margin-inline: auto;
+  padding-inline: var(--ebp-gutter);
+}
+
+/* Subnav disclosure (toolkit.js). Without JS the button stays hidden and the list open. */
+.tk-subnav__toggle {
+  display: none;
+  align-items: center;
+  gap: var(--ebp-s-2);
+  min-height: var(--ebp-target);
+  min-width: var(--ebp-target);
+  margin: 0;
+  padding: 0 var(--ebp-s-3);
+  background-color: var(--ebp-surface);
+  color: var(--ebp-ink);
+  border: var(--ebp-rule) solid var(--ebp-ink);
+  border-radius: var(--ebp-radius);
+  font-family: var(--ebp-font-mono);
+  font-size: var(--ebp-text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+.tk-subnav__toggle::after {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-top: -0.2rem;
+  border-right: var(--ebp-rule) solid currentColor;
+  border-bottom: var(--ebp-rule) solid currentColor;
+  transform: rotate(45deg);
+}
+.tk-subnav__toggle[aria-expanded="true"] {
+  background-color: var(--ebp-ink);
+  color: var(--ebp-bg);
+}
+.tk-subnav__toggle[aria-expanded="true"]::after {
+  margin-top: 0.2rem;
+  transform: rotate(-135deg);
+}
+.tk-subnav__toggle:hover { box-shadow: var(--ebp-shadow-sm); }
+
+@media (max-width: 47.999rem) {
+  .tk-subnav--js { padding-block: var(--ebp-s-2); gap: var(--ebp-s-2) var(--ebp-s-3); }
+  .tk-subnav--js .ebp-subnav__title { flex: 1 1 auto; }
+  .tk-subnav--js .tk-subnav__toggle { display: inline-flex; }
+  .tk-subnav--js .tk-subnav__toggle[aria-expanded="false"] + .ebp-subnav__list { display: none; }
+  .tk-subnav--js .ebp-subnav__list {
+    flex: 1 0 100%;
+    flex-direction: column;
+    margin-inline: 0;
+    border-top: 1px solid var(--ebp-border);
+  }
+  .tk-subnav--js .ebp-subnav__list > li + li { border-top: 1px solid var(--ebp-border); }
+  .tk-subnav--js .ebp-subnav__list a {
+    display: flex;
+    width: 100%;
+    padding-inline: 0;
+    font-size: var(--ebp-text-sm);
+  }
+  .tk-subnav--js .ebp-subnav__list a[aria-current] {
+    box-shadow: inset 4px 0 0 var(--ebp-accent);
+    padding-left: var(--ebp-s-3);
+  }
+}
+
+/* New-tab cue: visible arrow (screen readers get the text in the sibling .ebp-vh). */
+.tk-newtab > [aria-hidden] {
+  display: inline-block;
+  margin-left: 0.15em;
+  font-family: var(--ebp-font-body);
+  font-size: 0.85em;
+  font-weight: 400;
+  text-decoration: none;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   3. index.html — hero, sections, principles
+   ========================================================================== */
+.tk-hero {
+  padding-top: var(--ebp-s-8);
+  padding-bottom: var(--ebp-s-6);
+}
+.tk-hero h1 {
+  margin: 0 0 var(--ebp-s-4);
+  font-size: clamp(3rem, 2rem + 5vw, 5.5rem);
+  line-height: 0.9;
+}
+.tk-hero .subtitle {
+  margin: 0 0 var(--ebp-s-5);
+  padding-left: var(--ebp-s-3);
+  border-left: var(--ebp-rule-heavy) solid var(--ebp-accent);
+  font-size: var(--ebp-text-lg);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--ebp-ink-2);
+}
+.tk-hero .description {
+  margin: 0;
+  font-size: var(--ebp-text-base);
+  line-height: 1.7;
+}
+
+/* Drawn as a background clipped to the content box so it stays inside the reading column. */
+.tk-divider {
+  height: var(--ebp-rule);
+  margin-block: 0;
+  border: 0;
+  background-color: var(--ebp-ink);
+  background-clip: content-box;
+}
+
+.tk-section,
+.tk-principles {
+  padding-top: var(--ebp-s-7);
+  padding-bottom: var(--ebp-s-7);
+}
+
+.tk-section__title {
+  margin: 0 0 var(--ebp-s-4);
+}
+.tk-eyebrow {
+  display: block;
+  margin-bottom: var(--ebp-s-2);
+  font-family: var(--ebp-font-mono);
+  font-size: var(--ebp-text-xs);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ebp-accent);
+}
+.tk-lede {
+  margin: 0 0 var(--ebp-s-6);
+  color: var(--ebp-ink-2);
+  line-height: 1.7;
+}
+
+.tk-principles__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ebp-s-4);
+  margin-top: var(--ebp-s-5);
+}
+@media (min-width: 40rem) {
+  .tk-principles__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.principle {
+  padding: var(--ebp-s-4) var(--ebp-s-4) var(--ebp-s-5);
+  background-color: var(--ebp-surface);
+  border: var(--ebp-rule) solid var(--ebp-ink);
+  border-radius: var(--ebp-radius);
+  box-shadow: var(--ebp-shadow);
+}
+.principle-number {
+  margin: 0 0 var(--ebp-s-2);
+  font-family: var(--ebp-font-display);
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--ebp-accent);
+}
+.principle h3 {
+  margin: 0 0 var(--ebp-s-2);
+  font-size: var(--ebp-text-h4);
+}
+.principle p:last-child {
+  margin: 0;
+  font-size: var(--ebp-text-sm);
+  line-height: 1.6;
+  color: var(--ebp-ink-2);
+}
+
+/* ==========================================================================
+   4. Resource cards, callouts, tags, bibliography
+   ========================================================================== */
+.resources {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ebp-s-5);
+}
+.resource {
+  padding-bottom: var(--ebp-s-5);
+  border-bottom: 1px solid var(--ebp-border);
+}
+.resource:last-child { padding-bottom: 0; border-bottom: 0; }
+.resource-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--ebp-s-2) var(--ebp-s-3);
+  margin-bottom: var(--ebp-s-2);
+}
+.resource-title {
+  margin: 0;
+  font-size: var(--ebp-text-h4);
+  line-height: 1.35;
+}
+.resource-title a {
+  color: var(--ebp-ink);
+  text-decoration-color: var(--ebp-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+.resource-title a:hover { color: var(--ebp-accent); }
+.resource-desc {
+  margin: 0;
+  font-size: var(--ebp-text-base);
+  line-height: 1.65;
+  color: var(--ebp-ink-2);
+}
+.resource-credit {
+  margin: var(--ebp-s-2) 0 0;
+  font-family: var(--ebp-font-mono);
+  font-size: var(--ebp-text-xs);
+  letter-spacing: 0.02em;
+  color: var(--ebp-ink-2);
+}
+
+.callout {
+  padding: var(--ebp-s-4) var(--ebp-s-5);
+  background-color: var(--ebp-surface-2);
+  border-left: var(--ebp-rule-heavy) solid var(--ebp-accent);
+  border-radius: 0 var(--ebp-radius) var(--ebp-radius) 0;
+}
+.callout-title {
+  margin: 0 0 var(--ebp-s-2);
+  font-family: var(--ebp-font-body);
+  font-size: var(--ebp-text-h4);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  text-transform: none;
+}
+.callout p { color: var(--ebp-ink-2); }
+.callout p:last-child { margin-bottom: 0; }
+.callout p a { color: var(--ebp-accent); }
+.callout p a:hover { color: var(--ebp-accent-hover); }
+.callout code { background-color: var(--ebp-surface); overflow-wrap: anywhere; }
+
+/* Tags: always text + colour; colour pairs from section 1. */
+.tag {
+  position: relative;
+  top: -0.1em;
+  flex: none;
+  white-space: nowrap;
+  border-color: currentColor;
+}
+.tag-guide     { color: var(--tk-tag-guide);     background-color: var(--tk-tag-guide-bg); }
+.tag-template  { color: var(--tk-tag-template);  background-color: var(--tk-tag-template-bg); }
+.tag-tutorial  { color: var(--tk-tag-tutorial);  background-color: var(--tk-tag-tutorial-bg); }
+.tag-toolkit   { color: var(--tk-tag-toolkit);   background-color: var(--tk-tag-toolkit-bg); }
+.tag-schema    { color: var(--tk-tag-schema);    background-color: var(--tk-tag-schema-bg); }
+.tag-interview { color: var(--tk-tag-interview); background-color: var(--tk-tag-interview-bg); }
+.tag-code      { color: var(--tk-tag-code);      background-color: var(--tk-tag-code-bg); }
+.tag-zine      { color: var(--tk-tag-zine);      background-color: var(--tk-tag-zine-bg); }
+.tag-tool      { color: var(--tk-tag-tool);      background-color: var(--tk-tag-tool-bg); }
+.tag-archive   { color: var(--tk-tag-archive);   background-color: var(--tk-tag-archive-bg); }
+
+.bib-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--ebp-rule) solid var(--ebp-ink);
+}
+.bib-list li {
+  margin: 0;
+  padding: var(--ebp-s-3) 0;
+  border-bottom: 1px solid var(--ebp-border);
+  line-height: 1.7;
+}
+.bib-list li:last-child { border-bottom: 0; }
+
+/* ==========================================================================
+   5. archives.html — directory
+   ========================================================================== */
+.tk-directory-page main {
+  box-sizing: content-box;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--ebp-gutter);
+}
+.tk-dir-hero {
+  padding: var(--ebp-s-7) 0 var(--ebp-s-5);
+}
+.tk-dir-hero h1 { margin: 0 0 var(--ebp-s-3); }
+.tk-dir-hero .subtitle {
+  margin: 0;
+  font-size: var(--ebp-text-lg);
+  color: var(--ebp-ink-2);
+}
+
+.tk-dir-controls {
+  display: grid;
+  gap: var(--ebp-s-4);
+  margin: 0 0 var(--ebp-s-4);
+  padding: var(--ebp-s-4);
+  background-color: var(--ebp-surface-2);
+  border: var(--ebp-rule) solid var(--ebp-ink);
+  border-radius: var(--ebp-radius);
+}
+.tk-dir-search { margin: 0; }
+.tk-dir-search input[type="search"] { font-size: var(--ebp-text-base); }
+
+.tk-filters {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.tk-filters legend {
+  margin-bottom: var(--ebp-s-2);
+  padding: 0;
+  font-family: var(--ebp-font-mono);
+  font-size: var(--ebp-text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ebp-ink);
+}
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ebp-s-2);
+}
+/* Toggle buttons: off = surface + colour swatch; on = ink fill + check mark (never colour alone). */
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ebp-s-2);
+  min-height: var(--ebp-target);
+  margin: 0;
+  padding: 0 var(--ebp-s-3);
+  background-color: var(--ebp-surface);
+  color: var(--ebp-ink);
+  border: var(--ebp-rule) solid var(--ebp-ink);
+  border-radius: var(--ebp-radius);
+  font-family: var(--ebp-font-mono);
+  font-size: var(--ebp-text-xs);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform var(--ebp-ease), box-shadow var(--ebp-ease);
+}
+.filter-btn::before {
+  content: "";
+  flex: none;
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 1px solid var(--ebp-ink);
+  background-color: var(--tk-swatch, var(--ebp-surface-2));
+}
+.filter-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--ebp-shadow);
+}
+.filter-btn[aria-pressed="true"] {
+  background-color: var(--ebp-ink);
+  color: var(--ebp-bg);
+}
+.filter-btn[aria-pressed="true"]::before {
+  content: "\2713";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-color: var(--ebp-bg);
+  background-color: var(--ebp-bg);
+  color: var(--ebp-ink);
+  font-size: 0.7rem;
+  line-height: 1;
+}
+.filter-btn:focus-visible { box-shadow: var(--ebp-focus-ring); }
+.filter-btn[data-cat="zines"]        { --tk-swatch: var(--tk-tag-zine); }
+.filter-btn[data-cat="flyers"]       { --tk-swatch: var(--tk-tag-template); }
+.filter-btn[data-cat="music"]        { --tk-swatch: var(--tk-tag-tutorial); }
+.filter-btn[data-cat="scene"]        { --tk-swatch: var(--tk-tag-guide); }
+.filter-btn[data-cat="oral-history"] { --tk-swatch: var(--tk-tag-interview); }
+.filter-btn[data-cat="physical"]     { --tk-swatch: var(--tk-tag-archive); }
+
+.results-bar { margin: 0 0 var(--ebp-s-3); }
+.results-count {
+  margin: 0;
+  font-family: var(--ebp-font-mono);
+  font-size: var(--ebp-text-sm);
+  color: var(--ebp-ink-2);
+}
+.results-count strong { color: var(--ebp-ink); font-weight: 500; }
+
+.card-grid { --ebp-grid-min: 18rem; }
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ebp-s-2);
+}
+/* Card titles are h2s (directory headings) but read as body-font titles, not display caps. */
+.card-title {
+  font-family: var(--ebp-font-body);
+  font-size: var(--ebp-text-h4);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  text-transform: none;
+}
+.card-tags { gap: var(--ebp-s-1); margin: 0; }
+.card-tags .tag { top: 0; min-height: 1.5rem; }
+.meta-sep { margin: 0 var(--ebp-s-1); }
+.card-desc {
+  flex-grow: 1;
+  margin: 0;
+  font-size: var(--ebp-text-sm);
+  line-height: 1.55;
+  color: var(--ebp-ink-2);
+}
+.card-footer { margin-top: var(--ebp-s-1); }
+.card-visit {
+  font-family: var(--ebp-font-mono);
+  font-size: var(--ebp-text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ebp-accent);
+}
+.ebp-card:hover .card-visit { text-decoration: underline; text-decoration-thickness: 2px; }
+
+.empty-state {
+  margin: 0 0 var(--ebp-s-6);
+  padding: var(--ebp-s-5);
+  background-color: var(--ebp-surface);
+  border: var(--ebp-rule) dashed var(--ebp-ink);
+  border-radius: var(--ebp-radius);
+}
+.empty-state p { margin: 0 0 var(--ebp-s-4); font-size: var(--ebp-text-lg); }
+
+.tk-dir-callout { margin-top: var(--ebp-s-7); }
+.tk-dir-callout .callout-title { font-size: var(--ebp-text-h4); }
+
+/* ==========================================================================
+   6. User preferences
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .filter-btn:hover { transform: none; }
+}
+@media (prefers-contrast: more) {
+  .tag { border-color: currentColor; border-width: 2px; }
+}
+@media (forced-colors: active) {
+  .filter-btn { border-color: ButtonText; box-shadow: none; }
+  .filter-btn::before { forced-color-adjust: none; }
+  .filter-btn[aria-pressed="true"] { border: 3px solid Highlight; color: Highlight; text-decoration: underline; }
+  .tag { border-color: CanvasText; }
+  .callout { border-left-color: CanvasText; }
+  .principle { box-shadow: none; }
+}
+
+/* ==========================================================================
+   7. Print — no navigation, black on white, URLs after links
+   ========================================================================== */
+@media print {
+  /* @tokens print */
+  :root,
+  [data-theme] {
+    --tk-tag-guide: #000000;     --tk-tag-guide-bg: #ffffff;
+    --tk-tag-template: #000000;  --tk-tag-template-bg: #ffffff;
+    --tk-tag-tutorial: #000000;  --tk-tag-tutorial-bg: #ffffff;
+    --tk-tag-toolkit: #000000;   --tk-tag-toolkit-bg: #ffffff;
+    --tk-tag-schema: #000000;    --tk-tag-schema-bg: #ffffff;
+    --tk-tag-interview: #000000; --tk-tag-interview-bg: #ffffff;
+    --tk-tag-code: #000000;      --tk-tag-code-bg: #ffffff;
+    --tk-tag-zine: #000000;      --tk-tag-zine-bg: #ffffff;
+    --tk-tag-tool: #000000;      --tk-tag-tool-bg: #ffffff;
+    --tk-tag-archive: #000000;   --tk-tag-archive-bg: #ffffff;
+  }
+  /* @end */
+  .ebp-header,
+  .tk-subnav__toggle,
+  .tk-newtab,
+  .tk-dir-controls,
+  .card-visit { display: none !important; }
+
+  body { background: none; color: var(--ebp-ink); }
+  .tk-hero { padding-top: 0; padding-bottom: var(--ebp-s-4); }
+  .tk-hero h1 { font-size: 30pt; }
+  .tk-section,
+  .tk-principles { padding-top: var(--ebp-s-5); padding-bottom: var(--ebp-s-4); }
+  .tk-lede,
+  .resource-desc,
+  .resource-credit,
+  .callout p,
+  .principle p:last-child,
+  .tk-hero .subtitle { color: var(--ebp-ink); }
+  .principle { box-shadow: none; break-inside: avoid; }
+  .resource,
+  .callout,
+  .bib-list li,
+  .ebp-card { break-inside: avoid; }
+  .callout { background: none; border-left-width: var(--ebp-rule); padding: var(--ebp-s-2) var(--ebp-s-4); }
+  a { color: var(--ebp-ink); }
+  .tag { border: 1px solid var(--ebp-ink); }
+
+  /* Show where links go. In-page anchors and relative links are left alone. */
+  main a[href^="http"]::after,
+  main a[href^="mailto:"]::after,
+  .ebp-footer p a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-family: var(--ebp-font-mono);
+    font-size: 0.78em;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+  /* Whole-card overlay link in the directory: print the URL, not an invisible overlay. */
+  .ebp-card__title a::after { position: static; inset: auto; }
+  .card-grid { display: block; }
+  .card-grid > li { display: block; margin-bottom: var(--ebp-s-3); }
+  .ebp-card { border-width: 1px; }
+}
+
+/* Contrast record (text / tag bg, light | dark), WCAG 2.x:
+   guide 6.49 | 10.95   template 6.38 | 9.81   tutorial 7.15 | 8.87   toolkit 5.98 | 8.84
+   schema 6.73 | 10.32  interview 6.68 | 8.56  code 8.40 | 9.89      zine 7.08 | 9.13
+   tool 6.59 | 9.45     archive 7.62 | 8.75
+   Lowest against page/surface: light toolkit on bg 6.47, dark tutorial on surface 9.82. */

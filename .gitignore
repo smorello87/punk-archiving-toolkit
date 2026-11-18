@@ -6,3 +6,5 @@ Untitled-1.md
 # Private drafts
 *.docx
 !Punk_Digital_Archive_Permission_Form.docx
+.DS_Store
+!core/img/*.png

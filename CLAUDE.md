@@ -8,9 +8,9 @@ The Punk Archiving Toolkit is a single-page static website that curates guides, 
 
 ## Architecture
 
-**`index.html`** — The main toolkit page. Single HTML file with all CSS inline in a `<style>` block and a small `<script>` at the bottom (closes the mobile nav on link click). No build step, no package manager, no external dependencies beyond Google Fonts.
+**`index.html`** — The main toolkit page. Single HTML file styled by `core/ebp-core.css` + `toolkit.css`, with `core/ebp-core.js` + `toolkit.js`. No build step, no package manager, no external dependencies (fonts are self-hosted).
 
-**`archives.html`** — Archives Directory. A searchable, filterable catalog of 115 punk archives worldwide. Same architecture: single HTML file, all CSS inline, all data embedded as a JS array. Linked from the toolkit nav ("More +" dropdown) and the Examples section callout.
+**`archives.html`** — Archives Directory. A searchable, filterable catalog of 115 punk archives worldwide. Same architecture and stylesheets; all data embedded as a JS array. Linked from the toolkit nav ("More +" dropdown) and the Examples section callout.
 
 Supporting files (reference material, not served on the site):
 - `PSN 2026 Paper.docx` — Source paper describing EBP-DA methodology
@@ -34,14 +34,23 @@ Each section is marked with an HTML comment (e.g. `<!-- PLAN YOUR ARCHIVE -->`).
 
 ## Nav Behavior
 
-- **Desktop**: 7 visible links + a "More +" hover dropdown containing Examples, Archives Directory, Go Further, Reading. The dropdown uses a `::before` pseudo-element on `.nav-dropdown` as an invisible hover bridge so the menu doesn't disappear while moving the mouse from the label to the menu.
-- **Mobile (≤768px)**: CSS-only hamburger menu using a hidden checkbox toggle (`.nav-toggle`). The "More +" label is hidden; dropdown items appear flat via `display: block; position: static` (not `display: contents` — that has Safari click-handling bugs). The `::before` hover bridge is hidden at mobile. A small script unchecks the toggle when a link is clicked.
+- **Global header** (shared with the archive and VEBP): logo, links to Collections / Items / VEBP / Toolkit / Ethics / About on eastbaypunkda.com, and the light/dark toggle. Below 48rem the links sit behind a "Menu" button.
+- **Toolkit subnav**: the ten in-page section links. At 48rem and wider all are visible; below that a "Sections" button discloses them (`aria-expanded`, Esc closes and returns focus, following a link closes it). Nothing is hover-only, and without JavaScript the list stays open.
 
 ## Design System
 
-- **Fonts**: Newsreader (display serif) + Work Sans (body sans-serif) via Google Fonts
-- **Palette**: CSS custom properties on `:root` — off-white bg (`#faf8f5`), burnt orange accent (`#b45309`), warm stone text (`#1c1917`)
-- **Max content width**: `--max-w: 44rem`
+Since 2026-11-18 the toolkit shares one design system with the East Bay Punk Digital Archive and VEBP.
+The source of truth is the private `ebp-da` repo (`core/` + `toolkit/`); this repo is a published copy.
+
+- **`core/`** — shared, do not edit here: `ebp-core.css` (colour tokens for light and dark mode, type,
+  header/nav/footer, buttons, cards, tags), `ebp-core.js` (light/dark toggle, mobile menu), self-hosted
+  fonts (Bebas Neue display, Work Sans body, DM Mono labels), logo images.
+- **`toolkit.css`** — toolkit-only rules, written with the `--ebp-*` tokens; tag colours are
+  `--tk-tag-*` tokens defined for both modes (all pass 4.5:1).
+- **`toolkit.js`** — the "Sections" disclosure on small screens and the "opens in new tab" cue.
+- Pages open in light mode; the header toggle switches to dark and the choice is remembered.
+- **Max content width**: 44rem reading measure.
+- Accessibility target: WCAG 2.2 AA (axe clean in both modes, keyboard operable, no hover-only UI).
 
 ### Resource Tags
 

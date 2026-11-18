@@ -1,0 +1,8 @@
+<!--
+  EBP no-flash theme snippet. Paste as the FIRST thing inside <head>, before any stylesheet.
+  Put the page default on <html>:  <html lang="en" data-default-theme="light">  (VEBP: "dark")
+  Mirrors the logic in ebp-core.js: stored choice > page default (the OS setting is deliberately not followed).
+  Keep the meta below too, so form controls/scrollbars match before CSS loads.
+-->
+<meta name="color-scheme" content="light dark">
+<script>(function(d){var r=d.documentElement,t;try{t=localStorage.getItem("ebp-theme")}catch(e){}if(t!=="light"&&t!=="dark"){t=r.getAttribute("data-default-theme")==="dark"?"dark":"light"}r.setAttribute("data-theme",t);r.classList.add("ebp-js")})(document);</script>
